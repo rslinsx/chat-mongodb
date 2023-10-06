@@ -1,0 +1,7 @@
+.textScren {
+    display: flex;
+    height: 90vh;
+    width: 100%;
+    background-color: red;
+    flex-direction: column;
+}

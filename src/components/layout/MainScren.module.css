@@ -1,0 +1,8 @@
+.mainScren {
+    display: flex;
+    border: 1px solid black;
+    height: 80vh;
+    width: 50vw;
+    margin-top: 5vh;
+    flex-direction: column;
+}
