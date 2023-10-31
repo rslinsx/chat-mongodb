@@ -23,16 +23,10 @@ const newMessage = new Mensagem ({
 // newMessage.save().then(()=>{
 //     console.log('Mensagem enviada com sucesso!');
 // }).catch((err)=>{
-//     console.error('deu esse erro aqui, pai vei: '+err);
+//      console.error('deu esse erro aqui, pai vei: '+err);
 // });
 
-Mensagem.find({}).then((data) => {
-    data.forEach((documento) => {
-      console.log(documento.conteudo);
-    });
-  }).catch((err) => {
-    console.log(err);
-  });
+module.exports =  Mensagem ;
 
 
 
