@@ -5,8 +5,7 @@ import TextScren from './components/layout/TextScren';
 import InputText from './components/layout/InputText';
 import Crm from './components/layout/Crm';
 import Perfil from './components/layout/Perfil';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-router-dom';
 import './App.css';
 import LoginForm from './components/layout/LoginForm';
 

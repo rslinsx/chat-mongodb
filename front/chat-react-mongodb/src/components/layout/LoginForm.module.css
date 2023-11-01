@@ -1,0 +1,26 @@
+.formular {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    margin-top: 20vh;
+    padding: 150px;
+    width: 33vw;
+    margin-left: 25vw;
+}
+
+.formular label {
+    margin-left: 8vw;
+
+}
+
+.campoinfo {
+    width: 250px;
+    text-decoration: none;
+}
+
+.campoBt {
+    margin-top: 20px;
+    width: 125px;
+    padding: 10px;
+    margin-left: 14vw;
+}

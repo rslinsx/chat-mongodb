@@ -1,20 +1,29 @@
+import styles from './LoginForm.module.css';
+
+
 function LoginForm(){
     return(
-        <div>
-            <input type="text"
-             placeholder="Digite seu email"
-             value=""
-             onChange=""   
-            />
-
-            <input
-             type="text"
-             placeholder="Digite sua senha"
-             value=""
-             onChange=""   
-            />
-
-        </div>
+        <form className={styles.formular} action="">
+            <div>
+                <label for="email">Email: </label>
+                <input
+                 className={styles.campoinfo}   
+                 type="email"
+                 id="email"
+                 name="name"
+                />
+            </div>
+            <div>
+                <label for="password">Senha: </label>
+                <input
+                 className={styles.campoinfo}  
+                 type="password"
+                 id="password"
+                 name="password"
+                />
+            </div>
+            <input className={styles.campoBt} type="submit" value="Entrar"/>
+        </form>
     )
 };
 
