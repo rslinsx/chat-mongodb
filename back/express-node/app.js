@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const Mensagem = require("./mongodb");
 const cors = require('cors');
+const newUser = require("./mongodb");
 
 
 
@@ -36,6 +37,18 @@ const cors = require('cors');
       console.log(err);
       res.status(500).json({ error: 'Erro ao criar mensagem'});
     })
+  });
+
+  app.post('/login', (req, res)=>{
+    newUser.findOne(req.body).then((data)=>{
+      console.log(req.body);
+      console.log(data);
+      res.json(data);
+    }).catch((err)=>{
+      console.log(err);
+      res.status(500).json(err);
+    })
+
   })
 
 

@@ -1,26 +1,47 @@
-.formular {
+.telaMaior {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
     border: 1px solid black;
-    margin-top: 20vh;
-    padding: 150px;
-    width: 33vw;
-    margin-left: 25vw;
+    border-radius: 5px;
 }
 
-.formular label {
-    margin-left: 8vw;
-
+.campoEmail {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
 }
 
-.campoinfo {
-    width: 250px;
-    text-decoration: none;
+.campoSenha {
+    display: flex;
+    justify-content: center;
 }
 
-.campoBt {
-    margin-top: 20px;
-    width: 125px;
+.campoSenha input{
+    margin-right: 5px;
+}
+
+
+.campoBotaoEntrar {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.campoBotaoEntrar button {
     padding: 10px;
-    margin-left: 14vw;
+    width: 110px;
+}
+
+
+.campoBotaoRegistrar {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
 }
