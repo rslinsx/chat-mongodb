@@ -33,6 +33,12 @@ const novoUsuario = new newUser({
     chave: true
 });
 
+// newUser.findOne({ email: 'rafael@gmail.com', senha: 'teste123456' }).then((data)=>{
+//    console.log(data);
+// }).catch((err)=>{
+//     console.log('Deu esse erro: '+err);
+// });
+
 
 
 
@@ -49,7 +55,9 @@ const novoUsuario = new newUser({
 //      console.error('deu esse erro aqui, pai vei: '+err);
 // });
 
-module.exports =  Mensagem ;
-
+module.exports =  {
+     Mensagem: Mensagem,
+     newUser: newUser
+}
 
 

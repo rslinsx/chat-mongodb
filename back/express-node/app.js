@@ -1,8 +1,7 @@
 const express = require('express');
 const app = express();
-const Mensagem = require("./mongodb");
 const cors = require('cors');
-const newUser = require("./mongodb");
+const {newUser, Mensagem} = require("./mongodb");
 
 
 
@@ -44,17 +43,11 @@ const newUser = require("./mongodb");
       console.log(req.body);
       console.log(data);
       res.json(data);
-    }).catch((err)=>{
-      console.log(err);
-      res.status(500).json(err);
-    })
+  }).catch((err)=>{
+      console.log('Deu esse erro: '+err);
+  });
 
-  })
-
-
-
-
-
+  });
 
 app.listen(8081, ()=>{
     console.log('Servidor rodando na porta 8081');

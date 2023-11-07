@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import styles from './LoginForm.module.css';
+import { Link } from 'react-router-dom';
 
 
-function LoginForm(){
+function LoginForm({alterarEstadoDeLogin}){
     
     const [emailDigitado,setEmailDigitado] = useState('');
     const [senhadigitada, setSenhaDigitada] = useState('');
@@ -24,9 +25,13 @@ function LoginForm(){
             },
             body: JSON.stringify({email: emailDigitado, senha: senhadigitada})
         }).then((response)=>{
-             return JSON.parse(response);
+             return response.json();
         }).then((data)=>{
-            console.log(data);
+            if(data === null){
+                alert("usuário ou senha incorretos!")
+            }else{    
+            localStorage.setItem('key',true);    
+        };
         }).catch((err)=>{
             console.log(err);
         });
@@ -47,7 +52,7 @@ function LoginForm(){
                     <button onClick={loginEnviar}>Entrar</button> 
                 </div>
                 <div className={styles.campoBotaoRegistrar}>
-                    <button>Registrar-se</button> 
+                    <button><Link to="cadastro">Registrar-se</Link></button> 
                 </div>
                 
             </div>             
