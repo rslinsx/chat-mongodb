@@ -29,7 +29,8 @@ function LoginForm({alterarEstadoDeLogin}){
         }).then((data)=>{
             if(data === null){
                 alert("usuário ou senha incorretos!")
-            }else{    
+            }else{
+            localStorage.setItem('email', data.email);        
             localStorage.setItem('key',true);    
         };
         }).catch((err)=>{
@@ -52,7 +53,7 @@ function LoginForm({alterarEstadoDeLogin}){
                     <button onClick={loginEnviar}>Entrar</button> 
                 </div>
                 <div className={styles.campoBotaoRegistrar}>
-                    <button><Link to="cadastro">Registrar-se</Link></button> 
+                    <button><Link to="/cadastro">Registrar-se</Link></button> 
                 </div>
                 
             </div>             

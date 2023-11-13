@@ -1,5 +1,6 @@
 import styles from "./TextScren.module.css";
 import React, { useState, useEffect } from 'react';
+import InputText from "./InputText";
 
 
 function TextScren(){
@@ -25,6 +26,8 @@ function TextScren(){
             {messages.map((message)=>(
                 <p>{message.conteudo}</p>
             ))}
+            <InputText/>
+
         </div>
     );
 };

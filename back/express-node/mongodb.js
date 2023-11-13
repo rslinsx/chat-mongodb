@@ -10,26 +10,44 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true }).
 
 const userSchema = new mongoose.Schema({
     email: String,
+    firstname: String,
+    lastname: String,
     senha: String,
     chave: Boolean
 });
 
+const crmSchema = new mongoose.Schema({
+    email: String
+})
+
 const mensagensSchema = new mongoose.Schema({
+    email: String,
     conteudo: String
 }, {
     versionKey: false
 });
 
 const newUser = mongoose.model('Users', userSchema);
+// const newTest = mongoose.model('Users', userSchema);
 const Mensagem = mongoose.model('Mensagens', mensagensSchema);
 
 const newMessage = new Mensagem ({
     conteudo: 'Esse é um pequeno teste'
 });
 
+// const novoUsuarioTeste = new newTest({
+//     email: 'lethicia@gmail.com',
+//     senha: '1234',
+//     firstname: "Lethicia",
+//     lastname: "Pinho",
+//     chave: true
+// });
+
 const novoUsuario = new newUser({
     email: 'rafael@gmail.com',
-    senha: 'teste123456',
+    senha: '1234',
+    firstname: "Rafael",
+    lastname: "Lins",
     chave: true
 });
 
@@ -37,17 +55,13 @@ const novoUsuario = new newUser({
 //    console.log(data);
 // }).catch((err)=>{
 //     console.log('Deu esse erro: '+err);
-// });
+// }); 
 
-
-
-
-// novoUsuario.save().then(()=>{
-//     console.log('novo usuario cadastrado')
+// novoUsuarioTeste.save().then(()=>{
+//    console.log('novo usuario cadastrado')
 // }).catch((err)=>{
 //     console.log('deu esse erro: '+err)
 // });
-
 
 // newMessage.save().then(()=>{
 //     console.log('Mensagem enviada com sucesso!');

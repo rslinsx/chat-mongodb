@@ -2,6 +2,9 @@ import { useState } from "react";
 import styles from "./InputText.module.css";
 
 function InputText({ochInputValue, printMessage}) {
+
+
+    
     
     return (
 

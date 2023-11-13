@@ -6,17 +6,22 @@ function Register(){
         <div>   
              <div>
                     <label htmlFor='email'>Email: </label>
-                    <input type="email"></input>
+                    <input type="email" id="email"></input>
                 </div>
                 <div>
                     <label htmlFor='senha'>Senha: </label>
-                    <input type="password"></input>
+                    <input type="password" id="senha"></input>
                 </div>
                 <div>
-                    <button>Entrar</button> 
+                    <label htmlFor='nome'>Nome: </label>
+                    <input type="text" id="nome"></input>
                 </div>
                 <div>
-                    <button>Registrar-se</button> 
+                    <label htmlFor='sobrenome'>Sobrenome: </label>
+                    <input type="text" id="sobrenome"></input>
+                </div>
+                <div>
+                    <button>Cadastrar</button> 
                 </div>
         </div>
     )

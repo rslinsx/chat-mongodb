@@ -38,6 +38,10 @@ const {newUser, Mensagem} = require("./mongodb");
     })
   });
 
+  app.get("/crm", (req, res)=>{
+    
+  })
+
   app.post('/login', (req, res)=>{
     newUser.findOne(req.body).then((data)=>{
       console.log(req.body);

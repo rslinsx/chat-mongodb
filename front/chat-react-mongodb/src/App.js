@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import './App.css';
 import LoginForm from './components/layout/LoginForm';
 import Register from './components/layout/Register';
+import HomeHome from './components/layout/HomeHome';
 
 function App() {
 
@@ -25,12 +26,12 @@ function App() {
           
             <MainScren>
             <Router>
-              {!estaLogado && <Navigate to="/login" replace/>}
               {estaLogado && <Navbar sair={logOut}/>}
               <Routes>
-                <Route path="/mensagens" element={<TextScren/>}/>
-                <Route path="/crm" element={<Crm/>}/>
-                <Route path="/perfil" element={<Perfil/>}/>
+                <Route path='/' element={!estaLogado && <HomeHome/>}/>
+                <Route path="/mensagens" element={estaLogado ? <TextScren/> : <Navigate to="/login"/>}/>
+                <Route path="/crm" element={estaLogado ? <Crm/> : <Navigate to="/login"/>}/>
+                <Route path="/perfil" element={estaLogado ? <Perfil/> : <Navigate to="/login"/>}/>
                 <Route path="/login" element={estaLogado ? <Navigate to="/mensagens" replace/> : <LoginForm alterarEstadoDeLogin={setEstaLogado}/>}/>
                 <Route path="/cadastro" element={<Register/>}/>
               </Routes>

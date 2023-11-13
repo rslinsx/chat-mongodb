@@ -1,5 +1,15 @@
 .inputScren {
-    display: flex;
+    border: 1px solid black;
     height: 10vh;
-    width: 100%;
+    margin-top: 250px;
+    margin-left: 300px;
+    display: flex;
+    justify-content: right;
+    margin-right: 30px;
+
+}
+
+.inputScren input {
+    width: 70vw;
+    height: 40px;
 }
