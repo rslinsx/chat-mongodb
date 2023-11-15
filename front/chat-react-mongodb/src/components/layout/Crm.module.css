@@ -24,3 +24,8 @@ container {
 button:hover {
     cursor: pointer;
 }
+
+.janelaCadastroContato {
+    border: 1px solid black;
+    width: 300px;
+}

@@ -1,13 +1,16 @@
+import React, {useState} from "react";
 import styles from "./Crm.module.css";
 
-function Crm(){
+function Crm(){ 
+    
+    const [mostrarJanelaCadastro, setMostarJanelaCadastro] = useState(false);
 
     function CadastrarContato(){
-      console.log("Em construção!") 
+      setMostarJanelaCadastro(true); 
     };
 
     return(
-        <div>
+        <div className={styles.telaMaiorCrm}>
             <div className={styles.divCrm}>
                 <h1>CRM</h1>
                 <button onClick={CadastrarContato}>Cadastrar contato</button>
@@ -19,7 +22,17 @@ function Crm(){
                     <button>Iniciar conversa</button>
                 </div>
             </container>
+
+
+            {mostrarJanelaCadastro && (<div className={styles.janelaCadastroContato}>
+                <label htmlFor="email">Email: </label>
+                <input id="email"/>
+                <button>Procurar</button>
+            </div>)} 
         </div>
+
+          
+
     )
 
 }
