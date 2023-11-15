@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const {newUser, Mensagem} = require("./mongodb");
+const {newUser, Mensagem, crmSchema} = require("./mongodb");
 
 
 
@@ -51,6 +51,10 @@ const {newUser, Mensagem} = require("./mongodb");
       console.log('Deu esse erro: '+err);
   });
 
+  });
+
+  app.post("/crm", (req, res)=>{
+      console.log(req.body);
   });
 
 app.listen(8081, ()=>{

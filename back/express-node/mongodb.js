@@ -27,9 +27,24 @@ const mensagensSchema = new mongoose.Schema({
     versionKey: false
 });
 
+
+const ContactNew = 'lethicia@gmail.com'
+
 const newUser = mongoose.model('Users', userSchema);
 // const newTest = mongoose.model('Users', userSchema);
 const Mensagem = mongoose.model('Mensagens', mensagensSchema);
+//teste contaot crm usando schema
+// const newContact = mongoose.model(`${ContactNew}Contact`, crmSchema);
+
+// const newContactTest = new newContact({
+//     email: "rafael@gmail.com"
+// });
+
+// newContactTest.save().then(()=>{
+//     console.log('Usuário cadastrado com sucesso!');
+// }).catch((err)=>{
+//     console.log('Deu esse erro aqui: '+err);
+// });
 
 const newMessage = new Mensagem ({
     conteudo: 'Esse é um pequeno teste'
@@ -71,7 +86,8 @@ const novoUsuario = new newUser({
 
 module.exports =  {
      Mensagem: Mensagem,
-     newUser: newUser
+     newUser: newUser,
+     crmSchema: crmSchema
 }
 
 
