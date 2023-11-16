@@ -9,6 +9,10 @@ function Crm(){
       setMostarJanelaCadastro(true); 
     };
 
+    function fecharJanelaCadastro(){
+        setMostarJanelaCadastro(false); 
+      };
+
     return(
         <div className={styles.telaMaiorCrm}>
             <div className={styles.divCrm}>
@@ -25,6 +29,10 @@ function Crm(){
 
 
             {mostrarJanelaCadastro && (<div className={styles.janelaCadastroContato}>
+                <div className={styles.botaoFecharCadastro}>
+                    <button onClick={fecharJanelaCadastro}>X</button>
+                </div>
+                <hr/>
                 <label htmlFor="email">Email: </label>
                 <input id="email"/>
                 <button>Procurar</button>

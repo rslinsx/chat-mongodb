@@ -26,6 +26,14 @@ button:hover {
 }
 
 .janelaCadastroContato {
+    display: inline-block;
     border: 1px solid black;
     width: 300px;
+    margin-left: 40vw;
+}
+
+.botaoFecharCadastro {
+    display: flex;
+    align-items: right;
+    justify-content: right;
 }
