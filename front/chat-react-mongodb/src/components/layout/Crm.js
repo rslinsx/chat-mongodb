@@ -62,10 +62,11 @@ function Crm(){
 
         setEmailProcurado('');
         setMostrarJanelaCadastro(false);
-        setMostarJanelaProcurar(false); 
+        setMostarJanelaProcurar(false);
+        window.location.reload(); 
 };
 
-     useEffect(()=>{
+     function carregarContatos(){
         fetch('http://localhost:8081/crm/contatos', {
             method: 'POST',
             headers: {
@@ -88,8 +89,11 @@ function Crm(){
         .catch(error => {
             console.log(error);
         });
-     }, []);
+     };
     
+     useEffect(()=>{
+        carregarContatos(); 
+      }, []);
 
 
 

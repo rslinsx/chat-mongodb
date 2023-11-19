@@ -33,7 +33,8 @@ function LoginForm(){
                 alert("usuário ou senha incorretos!")
             }else{
             localStorage.setItem('email', data.email);        
-            localStorage.setItem('key',true);  
+            localStorage.setItem('key',true);
+            window.location.reload();  
         };
         }).catch((err)=>{
             console.log(err);
