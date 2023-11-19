@@ -17,7 +17,9 @@ const userSchema = new mongoose.Schema({
 });
 
 const crmSchema = new mongoose.Schema({
-    email: String
+    email: String,
+    firstname: String,
+    lastname: String,
 })
 
 const mensagensSchema = new mongoose.Schema({
@@ -28,27 +30,28 @@ const mensagensSchema = new mongoose.Schema({
 });
 
 
-const ContactNew = 'lethicia@gmail.com'
-
 const newUser = mongoose.model('Users', userSchema);
 // const newTest = mongoose.model('Users', userSchema);
 const Mensagem = mongoose.model('Mensagens', mensagensSchema);
 //teste contaot crm usando schema
-// const newContact = mongoose.model(`${ContactNew}Contact`, crmSchema);
+// var Contacts = mongoose.model('Contact', crmSchema);
 
-// const newContactTest = new newContact({
-//     email: "rafael@gmail.com"
-// });
 
 // newContactTest.save().then(()=>{
-//     console.log('Usuário cadastrado com sucesso!');
+//   console.log('Usuário cadastrado com sucesso!');
 // }).catch((err)=>{
 //     console.log('Deu esse erro aqui: '+err);
 // });
 
-const newMessage = new Mensagem ({
-    conteudo: 'Esse é um pequeno teste'
-});
+// newContact.find({}).then((data)=>{
+//     console.log(data)
+// }).catch((err)=>{
+//     console.log(err)
+// });
+
+// const newMessage = new Mensagem ({
+//     conteudo: 'Esse é um pequeno teste'
+// });
 
 // const novoUsuarioTeste = new newTest({
 //     email: 'lethicia@gmail.com',

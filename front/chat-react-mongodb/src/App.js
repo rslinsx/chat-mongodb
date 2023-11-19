@@ -32,7 +32,7 @@ function App() {
                 <Route path="/mensagens" element={estaLogado ? <TextScren/> : <Navigate to="/login"/>}/>
                 <Route path="/crm" element={estaLogado ? <Crm/> : <Navigate to="/login"/>}/>
                 <Route path="/perfil" element={estaLogado ? <Perfil/> : <Navigate to="/login"/>}/>
-                <Route path="/login" element={estaLogado ? <Navigate to="/mensagens" replace/> : <LoginForm alterarEstadoDeLogin={setEstaLogado}/>}/>
+                <Route path="/login" element={estaLogado ? <Navigate to="/mensagens"/> : <LoginForm/>}/>
                 <Route path="/cadastro" element={<Register/>}/>
               </Routes>
             </Router>  

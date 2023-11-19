@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 function Navbar({sair}){
     return(
         <div className={styles.mainNavbar}>
+            <p className={styles.emailDoMomento}>{localStorage.getItem('email')}</p>
             <ul>
                 <li><Link to="/mensagens">conversas</Link></li>
                 <li><Link to="/crm">crm</Link></li>

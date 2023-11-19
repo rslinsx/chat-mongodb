@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const {newUser, Mensagem, crmSchema} = require("./mongodb");
+const { default: mongoose } = require('mongoose');
 
 
 
@@ -38,9 +39,15 @@ const {newUser, Mensagem, crmSchema} = require("./mongodb");
     })
   });
 
-  app.get("/crm", (req, res)=>{
-    
-  })
+  app.post('/crm/contatos', (req, res)=>{
+      const todosUsuariosDeUmEmail = mongoose.model(req.body.crmBuscado, crmSchema);
+      todosUsuariosDeUmEmail.find({}).then((data)=>{
+        console.log(data);
+        res.json(data);
+      }).catch((err)=>{
+        console.log(err);
+      })
+  });
 
   app.post('/login', (req, res)=>{
     newUser.findOne(req.body).then((data)=>{
@@ -53,9 +60,59 @@ const {newUser, Mensagem, crmSchema} = require("./mongodb");
 
   });
 
-  app.post("/crm", (req, res)=>{
-      console.log(req.body);
+  app.post("/crm/procurar", (req, res)=>{
+      newUser.findOne(req.body).then((data)=>{
+        console.log(req.body);
+        console.log(data);
+        res.json(data);
+      }).catch((err)=>{
+        console.log(err);
+      });
   });
+
+
+  app.post("/crm/cadastrar", (req, res)=>{
+     const novoContato = mongoose.model(`${req.body.emailUserAtual}contact`, crmSchema);
+     novoContato.findOne({email: req.body.email}).then((data)=>{
+
+     if(data === null){
+     const novoNovoContato = new novoContato({
+        email: req.body.email,
+        firstname: req.body.nome,
+        lastname: req.body.ultimoNome,
+     });
+
+     novoNovoContato.save().then(()=>{
+        res.json('Usuário cadastrado com sucesso!');
+     }).catch((err)=>{
+        console.log(err)
+     })}else{
+       res.json('Esse email já está incluído no seu CRM')
+     }})});
+
+
+  app.post("/registro", (req, res)=>{
+    newUser.findOne({email: req.body.email}).then((data)=>{
+      if (data === null) {
+        const novoRegistro = new newUser({
+          email: req.body.email,
+          senha: req.body.senha,
+          firstname: req.body.nome,
+          lastname: req.body.sobrenome,
+          chave: true
+          });
+
+          novoRegistro.save().then(()=>{
+          res.json('Usuário cadastrado com sucesso')
+          }).catch((err)=>{
+          console.log(err)
+          })}else{
+            res.json('Já há um cadastro com esse email!')
+          }
+
+          }).catch((err)=>{
+      console.log(err);
+    })});
 
 app.listen(8081, ()=>{
     console.log('Servidor rodando na porta 8081');

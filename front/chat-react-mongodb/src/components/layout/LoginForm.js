@@ -1,9 +1,11 @@
+/* global location */
+
 import { useState } from 'react';
 import styles from './LoginForm.module.css';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 
-function LoginForm({alterarEstadoDeLogin}){
+function LoginForm(){
     
     const [emailDigitado,setEmailDigitado] = useState('');
     const [senhadigitada, setSenhaDigitada] = useState('');
@@ -14,7 +16,7 @@ function LoginForm({alterarEstadoDeLogin}){
 
     function setarSenha(e){
         setSenhaDigitada(e.target.value);
-    }
+    };
 
     function loginEnviar(){
 
@@ -31,7 +33,7 @@ function LoginForm({alterarEstadoDeLogin}){
                 alert("usuário ou senha incorretos!")
             }else{
             localStorage.setItem('email', data.email);        
-            localStorage.setItem('key',true);    
+            localStorage.setItem('key',true);  
         };
         }).catch((err)=>{
             console.log(err);

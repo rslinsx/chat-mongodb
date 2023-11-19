@@ -9,7 +9,7 @@
     
 }
 
-container {
+.container {
     margin-top: 5vh;
     display: flex;
     flex-wrap: wrap;
@@ -26,14 +26,41 @@ button:hover {
 }
 
 .janelaCadastroContato {
+    position: absolute;
     display: inline-block;
     border: 1px solid black;
     width: 300px;
-    margin-left: 40vw;
+    margin-left: 38vw;
+    top: 20vh;
+    background-color: #778899;
+    padding: 25px;
+    border-radius: 10px;
 }
 
 .botaoFecharCadastro {
     display: flex;
     align-items: right;
     justify-content: right;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Cor de fundo semi-transparente */
+    z-index: 0; 
+}
+
+.janelaCadastroContatoEncontrado {
+    position: absolute;
+    display: inline-block;
+    border: 1px solid black;
+    width: 300px;
+    margin-left: 38vw;
+    top: 40vh;
+    background-color: #778899;
+    padding: 25px;
+    border-radius: 10px;
 }
