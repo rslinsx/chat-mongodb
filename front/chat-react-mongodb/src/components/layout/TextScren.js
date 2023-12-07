@@ -1,32 +1,33 @@
 import styles from "./TextScren.module.css";
-import React, { useState, useEffect } from 'react';
-import InputText from "./InputText";
-
+import React, { useState, useEffect, useRef } from 'react';
 
 function TextScren(){
 
     const [messages, setMessages] = useState([]);
+    const [ochmessage, setOchMessage] = useState('');
+    const [newMessages, setNewMessages] = useState('');
+    const messageRef = useRef();
 
-
-    useEffect(()=>{
-        fetch('http://localhost:8081/mensagens')
-    .then(response => {
-        return response.json();
-    })
-    .then(data => {
-       setMessages(data);
-    })
-    .catch(error => {
-        console.error(error);
-    })}, []);
-
-   
     return(
         <div className={styles.textScren}>
-            {messages.map((message)=>(
-                <p>{message.conteudo}</p>
-            ))}
-            <InputText/>
+            <div className={styles.telaContatos}>
+                <div className={styles.contactUnic}>
+                    <h5>teste</h5>
+                </div>
+            </div>
+            <div className={styles.textScrenMess}>
+                <div className={styles.textMensagens}>
+                    {messages.map((message)=>(
+                        <p>{message.conteudo}</p>
+                    ))}
+                </div>
+                <div>
+                    <div className={styles.inputScren}>
+                        <input id="send"type="text" ref={messageRef}/>
+                        <button id="buttonSend">Enviar</button>
+                    </div>
+                </div>
+            </div>
 
         </div>
     );

@@ -3,9 +3,10 @@
 import { useState } from 'react';
 import styles from './LoginForm.module.css';
 import { Link, Navigate } from 'react-router-dom';
+import io from 'socket.io-client';
 
 
-function LoginForm(){
+function LoginForm({setSocket}){
     
     const [emailDigitado,setEmailDigitado] = useState('');
     const [senhadigitada, setSenhaDigitada] = useState('');
@@ -17,6 +18,16 @@ function LoginForm(){
     function setarSenha(e){
         setSenhaDigitada(e.target.value);
     };
+
+
+    //function criar socket
+    async function logarCriarSocket(){
+        const username = localStorage.getItem('email');
+        const socket = await io.connect('http://localhost:8081')
+        socket.emit('set_username', username);
+        setSocket(socket)
+        ;}
+
 
     function loginEnviar(){
 
@@ -39,8 +50,14 @@ function LoginForm(){
         }).catch((err)=>{
             console.log(err);
         });
+
+        logarCriarSocket();
         
-    };
+    }; 
+
+    
+
+   
 
     return(
             <div className={styles.telaMaior}>

@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const http = require('http');
+const server = http.createServer(app);
 const cors = require('cors');
 const {newUser, Mensagem, crmSchema} = require("./mongodb");
 const { default: mongoose } = require('mongoose');
@@ -11,9 +13,40 @@ const { default: mongoose } = require('mongoose');
     app.use(express.urlencoded({extended:false}))
     app.use(express.json()) 
     app.use(cors());
+    const io = require('socket.io')(server, {
+      cors: {
+        origin: 'http://localhost:3000',
+        methods: ['GET', 'POST']
+      },
+    });
 
 //Conexão mongodb
     require('./mongodb');    
+
+
+//logica socket io
+
+io.on('connection', socket => {
+  console.log('usuario conectado!', socket.id);
+
+  socket.on('disconnect', reason=>{
+      console.log('usuário desconectado!', socket.id);
+  })
+
+  socket.on('set_username', username => {
+      socket.data.username = username;
+      console.log(socket.data.username);
+  });
+
+  socket.on('message', text => {
+      io.emit('receive_message', {
+          text,
+          authorId: socket.id,
+          author: socket.data.username
+      })
+  })
+});
+
 
 //Rotas
 
@@ -51,8 +84,6 @@ const { default: mongoose } = require('mongoose');
 
   app.post('/login', (req, res)=>{
     newUser.findOne(req.body).then((data)=>{
-      console.log(req.body);
-      console.log(data);
       res.json(data);
   }).catch((err)=>{
       console.log('Deu esse erro: '+err);
@@ -114,7 +145,7 @@ const { default: mongoose } = require('mongoose');
       console.log(err);
     })});
 
-app.listen(8081, ()=>{
+server.listen(8081, ()=>{
     console.log('Servidor rodando na porta 8081');
 });
 

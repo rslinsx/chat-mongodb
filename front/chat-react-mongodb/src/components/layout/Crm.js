@@ -109,7 +109,11 @@ function Crm(){
 
     function setarEmailProcurado(e){
         setEmailProcurado(e.target.value);
-    }  
+    };
+    
+    function iniciarConversa(emailParaIniciar){
+        console.log('esse aqui é o email setado: '+emailParaIniciar);
+    }
 
     return(
         <div className={styles.telaMaiorCrm}>
@@ -123,10 +127,10 @@ function Crm(){
             <div className={styles.container}>
                 {contatosEncontradosCrm.map((contatoEncontrado)=>(
 
-                <div className={styles.contactUnic}>
+                <div className={styles.contactUnic} id={contatoEncontrado.email}>
                     <h3>{contatoEncontrado.email}</h3>
                     <p>{contatoEncontrado.firstname} {contatoEncontrado.lastname}</p>
-                    <button>Iniciar conversa</button>
+                    <button onClick={()=> iniciarConversa(contatoEncontrado.email)}>Iniciar conversa</button>
                 </div>
                 ))}
             </div>

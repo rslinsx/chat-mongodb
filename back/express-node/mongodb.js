@@ -24,7 +24,11 @@ const crmSchema = new mongoose.Schema({
 
 const mensagensSchema = new mongoose.Schema({
     email: String,
-    conteudo: String
+    conteudo: String,
+    hora: {
+        type: Date,
+        default: Date.now
+    }
 }, {
     versionKey: false
 });
@@ -49,9 +53,9 @@ const Mensagem = mongoose.model('Mensagens', mensagensSchema);
 //     console.log(err)
 // });
 
-// const newMessage = new Mensagem ({
-//     conteudo: 'Esse é um pequeno teste'
-// });
+const newMessage = new Mensagem ({
+   conteudo: 'Esse é um pequeno teste socket'
+});
 
 // const novoUsuarioTeste = new newTest({
 //     email: 'lethicia@gmail.com',
@@ -84,7 +88,7 @@ const novoUsuario = new newUser({
 // newMessage.save().then(()=>{
 //     console.log('Mensagem enviada com sucesso!');
 // }).catch((err)=>{
-//      console.error('deu esse erro aqui, pai vei: '+err);
+//     console.error('deu esse erro aqui, pai vei: '+err);
 // });
 
 module.exports =  {

@@ -1,6 +1,50 @@
 .textScren {
     display: flex;
-    height: 80vh;
-    width: 100%;
+    border: 1px solid black;
+    height: 91.5vh;
+    background-color: antiquewhite;
+}
+
+
+.textScrenMess {
+    display: flex;
     flex-direction: column;
 }
+
+.textMensagens {
+    height: 90%;
+    border: 1px solid black;
+    width: 100%;
+}
+
+.divInput {
+    margin-top: 30%;
+    border: 1px solid black;
+    height: 10%;
+}
+
+.telaContatos {
+    background-color: gray;
+    height: 91.6vh;
+    width: 20%;
+}
+
+.contactUnic {
+    display: flex;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.inputScren {
+    height: 5%;
+    justify-content: right;
+    margin-right: 30px;
+
+}
+
+.inputScren input {
+    width: 70vw;
+    height: 40px;
+}
+
+
