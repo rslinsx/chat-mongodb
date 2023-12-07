@@ -2,11 +2,10 @@
 
 import { useState } from 'react';
 import styles from './LoginForm.module.css';
-import { Link, Navigate } from 'react-router-dom';
-import io from 'socket.io-client';
+import { Link } from 'react-router-dom';
 
 
-function LoginForm({setSocket}){
+function LoginForm(){
     
     const [emailDigitado,setEmailDigitado] = useState('');
     const [senhadigitada, setSenhaDigitada] = useState('');
@@ -18,16 +17,6 @@ function LoginForm({setSocket}){
     function setarSenha(e){
         setSenhaDigitada(e.target.value);
     };
-
-
-    //function criar socket
-    async function logarCriarSocket(){
-        const username = localStorage.getItem('email');
-        const socket = await io.connect('http://localhost:8081')
-        socket.emit('set_username', username);
-        setSocket(socket)
-        ;}
-
 
     function loginEnviar(){
 
@@ -50,8 +39,6 @@ function LoginForm({setSocket}){
         }).catch((err)=>{
             console.log(err);
         });
-
-        logarCriarSocket();
         
     }; 
 

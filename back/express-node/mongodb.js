@@ -23,7 +23,8 @@ const crmSchema = new mongoose.Schema({
 })
 
 const mensagensSchema = new mongoose.Schema({
-    email: String,
+    emailLogado: String,
+    emailConversaAtual: String,
     conteudo: String,
     hora: {
         type: Date,
@@ -94,7 +95,8 @@ const novoUsuario = new newUser({
 module.exports =  {
      Mensagem: Mensagem,
      newUser: newUser,
-     crmSchema: crmSchema
+     crmSchema: crmSchema,
+     mensagensSchema: mensagensSchema
 }
 
 

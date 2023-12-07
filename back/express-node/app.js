@@ -3,7 +3,7 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const cors = require('cors');
-const {newUser, Mensagem, crmSchema} = require("./mongodb");
+const {newUser, Mensagem, crmSchema, mensagensSchema} = require("./mongodb");
 const { default: mongoose } = require('mongoose');
 
 
@@ -33,18 +33,28 @@ io.on('connection', socket => {
       console.log('usuário desconectado!', socket.id);
   })
 
-  socket.on('set_username', username => {
-      socket.data.username = username;
-      console.log(socket.data.username);
+  socket.on('messageTest', message => {
+      socket.data.message = message;
+      const mensagensDeUmaConversa = mongoose.model(`${message.emailConversaAtual}${message.emailLogado}`, mensagensSchema);
+      // console.log({emailLogado: message.emailLogado, emailConversaAtual: message.emailConversaAtual})
+      // mensagensDeUmaConversa.findOne({emailLogado: message.emailLogado, emailConversaAtual: message.emailConversaAtual}).then((data)=>{
+      //    console.log("teste: "+data);
+      // }).catch((err)=>{
+      //   console.log(err);
+      // })
+      const novaMes = new mensagensDeUmaConversa({
+        emailLogado: message.emailLogado,
+        emailConversaAtual: message.emailConversaAtual,
+        conteudo: message.mensagem
+      });
+
+      novaMes.save().then(()=>{
+        console.log('salvo com sucesso!')
+      }).catch((err)=>{
+        console.log(err);
+      });
   });
 
-  socket.on('message', text => {
-      io.emit('receive_message', {
-          text,
-          authorId: socket.id,
-          author: socket.data.username
-      })
-  })
 });
 
 
@@ -75,7 +85,6 @@ io.on('connection', socket => {
   app.post('/crm/contatos', (req, res)=>{
       const todosUsuariosDeUmEmail = mongoose.model(req.body.crmBuscado, crmSchema);
       todosUsuariosDeUmEmail.find({}).then((data)=>{
-        console.log(data);
         res.json(data);
       }).catch((err)=>{
         console.log(err);
