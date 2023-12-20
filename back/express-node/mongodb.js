@@ -24,7 +24,6 @@ const crmSchema = new mongoose.Schema({
 
 const mensagensSchema = new mongoose.Schema({
     emailLogado: String,
-    emailConversaAtual: String,
     conteudo: String,
     hora: {
         type: Date,

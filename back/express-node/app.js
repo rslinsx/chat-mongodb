@@ -33,27 +33,46 @@ io.on('connection', socket => {
       console.log('usuário desconectado!', socket.id);
   })
 
-  socket.on('messageTest', message => {
-      socket.data.message = message;
-      const mensagensDeUmaConversa = mongoose.model(`${message.emailConversaAtual}${message.emailLogado}`, mensagensSchema);
-      // console.log({emailLogado: message.emailLogado, emailConversaAtual: message.emailConversaAtual})
-      // mensagensDeUmaConversa.findOne({emailLogado: message.emailLogado, emailConversaAtual: message.emailConversaAtual}).then((data)=>{
-      //    console.log("teste: "+data);
-      // }).catch((err)=>{
-      //   console.log(err);
-      // })
+  socket.on('enviarMensagem', message => {
+
+      const mensagensDeUmaConversa = mongoose.model(message.keyConversation, mensagensSchema);
+      
       const novaMes = new mensagensDeUmaConversa({
-        emailLogado: message.emailLogado,
-        emailConversaAtual: message.emailConversaAtual,
-        conteudo: message.mensagem
+      emailLogado: message.emailLogado,
+      conteudo: message.mensagem
       });
 
       novaMes.save().then(()=>{
-        console.log('salvo com sucesso!')
+      console.log('salvo com sucesso!')
       }).catch((err)=>{
-        console.log(err);
+      console.log(err);
       });
+
+      mensagensDeUmaConversa.find({}).then((data)=>{
+        // console.log(data);  
+      socket.data.allMessages = data;
+      console.log(socket.data.allMessages);
+      io.emit(message.keyConversation, socket.data.allMessages);
+      }).catch((err)=>{
+      console.log(err);
+      })
   });
+
+  
+    socket.on('clickConversaAtual', action=>{
+
+    const mensagensDeUmaConversa = mongoose.model(action.keyConversation, mensagensSchema);
+
+    mensagensDeUmaConversa.find({}).then((data)=>{
+      socket.data.allMessages = data;
+      console.log(socket.data.allMessages);
+      io.emit(action.keyConversation, socket.data.allMessages);
+    }).catch((err)=>{
+      console.log(err);
+    });
+  });
+
+  
 
 });
 
