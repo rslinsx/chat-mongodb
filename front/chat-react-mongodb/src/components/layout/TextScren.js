@@ -9,6 +9,7 @@ function TextScren(){
     const [newMessages, setNewMessages] = useState('');
     const messageRef = useRef();
     const socketRef = useRef();
+    const rolagemRef = useRef();
     const [keyMomentChat, setKeyMomentChat] = useState('');    
     
     useEffect(()=>{
@@ -20,9 +21,18 @@ function TextScren(){
     }, []);
 
     useEffect(()=>{
+        roalgemScren();
+    }, [messages]);
+
+    useEffect(()=>{
+
+        if (keyMomentChat === generateConversationKey(localStorage.getItem('email'), localStorage.getItem('emailConversaAtual'))) {
         socketRef.current.on(keyMomentChat, allMessages =>{
             setMessages(allMessages);
-        });
+        });}else{
+            return
+        }
+
     }, [keyMomentChat]);
 
 
@@ -33,9 +43,14 @@ function TextScren(){
         await socketRef.current.emit('enviarMensagem', messageTest);
 
         socketRef.current.emit('clickConversaAtual', { keyConversation: keyMomentChat });
+
+        clearInput();
+        focusInput();
     };
 
     function setarEmailConversa (email){
+
+        socketRef.current.off(keyMomentChat);
 
         localStorage.setItem('emailConversaAtual', email);
         const newKeyMomentChat = generateConversationKey(localStorage.getItem('email'), localStorage.getItem('emailConversaAtual'));
@@ -50,6 +65,24 @@ function TextScren(){
     function generateConversationKey(email1, email2) {
         const sortedEmails = [email1, email2].sort();
         return `${sortedEmails[0]}_${sortedEmails[1]}`;
+    };
+
+    function clearInput(){
+        messageRef.current.value = '';
+    }
+
+    function focusInput(){
+        messageRef.current.focus();
+    }
+
+    function getEnterKey(e){
+        if(e.key === 'Enter')
+            handleSubmit();
+        ;
+    };
+
+    function roalgemScren(){
+        rolagemRef.current.scrollIntoView({behavior: 'smooth'})
     };
 
     return(
@@ -68,12 +101,14 @@ function TextScren(){
             <div className={styles.textScrenMess}>
                 <div className={styles.textMensagens}>
                     {messages.map((message)=>(
-                        <p>{message.conteudo}</p>
+                        <p>{message.emailLogado === localStorage.getItem('email') ? 'eu' : message.emailLogado}: {message.conteudo}</p>
                     ))}
+
+                    <div ref={rolagemRef}></div>
                 </div>
                 <div>
                     <div className={styles.inputScren}>
-                        <input id="send"type="text" ref={messageRef}/>
+                        <input id="send"type="text" ref={messageRef} onKeyDown={(e)=>getEnterKey(e)}/>
                         <button id="buttonSend" onClick={handleSubmit}>Enviar</button>
                     </div>
                 </div>

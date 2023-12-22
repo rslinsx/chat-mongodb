@@ -65,8 +65,8 @@ io.on('connection', socket => {
 
     mensagensDeUmaConversa.find({}).then((data)=>{
       socket.data.allMessages = data;
-      console.log(socket.data.allMessages);
       io.emit(action.keyConversation, socket.data.allMessages);
+      console.log("esse aqui é a key:" + action.keyConversation);
     }).catch((err)=>{
       console.log(err);
     });
