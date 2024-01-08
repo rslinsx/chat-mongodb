@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from "react";
 import styles from "./Crm.module.css";
+import { Link } from 'react-router-dom';
+import io, { Socket } from 'socket.io-client';
 
 function Crm(){ 
     
@@ -10,6 +12,8 @@ function Crm(){
     const [nomeContatoEncontrado, setNomeContatoEncontrado] = useState('');
     const [ultimoNomeContatoEncontrado, setUltimoNomeContatoEncontrado] = useState('');
     const [contatosEncontradosCrm, setcontatosEncontradosCrm] = useState([]);
+    const [emailParaIniciarConversa, setEmailParaIniciarConversa] = useState('oi');
+    const [socketMomento, setSocketmomento] = useState(null);
 
 
     function procurarEmail(){
@@ -38,7 +42,11 @@ function Crm(){
         });
         }else{
         alert("Campo vazio!");
-    }}
+    }};
+
+
+    
+
 
     function incluirContatoCrm() {
         fetch('http://localhost:8081/crm/cadastrar', {
@@ -110,10 +118,29 @@ function Crm(){
     function setarEmailProcurado(e){
         setEmailProcurado(e.target.value);
     };
+
+    function setarEmailIniciarConversa(email){
+        socketMomento.emit('iniciarConversaEmail', email);
+        setEmailParaIniciarConversa(email);
+        console.log(email);
+
+        
+    };
+
+    // Lógica socket // iniciar conversa
+
+    useEffect(() => {
+        const socket = io.connect('http://localhost:8081');
     
-    function iniciarConversa(emailParaIniciar){
-        console.log('esse aqui é o email setado: '+emailParaIniciar);
-    }
+        // Escuta o evento 'connect' que é disparado quando a conexão é estabelecida
+        socket.on('connect', () => {
+            setSocketmomento(socket);
+        });
+    
+        return () => {
+            socket.disconnect();
+        };
+    }, []);
 
     return(
         <div className={styles.telaMaiorCrm}>
@@ -130,7 +157,8 @@ function Crm(){
                 <div className={styles.contactUnic} id={contatoEncontrado.email}>
                     <h3>{contatoEncontrado.email}</h3>
                     <p>{contatoEncontrado.firstname} {contatoEncontrado.lastname}</p>
-                    <button onClick={()=> iniciarConversa(contatoEncontrado.email)}>Iniciar conversa</button>
+                    <Link to ="/mensagens"><button onClick={()=> setarEmailIniciarConversa(contatoEncontrado.email)}>Iniciar conversa</button></Link>
+                    
                 </div>
                 ))}
             </div>

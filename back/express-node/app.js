@@ -30,49 +30,11 @@ io.on('connection', socket => {
   console.log('usuario conectado!', socket.id);
 
   socket.on('disconnect', reason=>{
-      console.log('usuário desconectado!', socket.id);
-  })
+    console.log('usuário desconectado!', socket.id)});
 
-  socket.on('enviarMensagem', message => {
-
-      const mensagensDeUmaConversa = mongoose.model(message.keyConversation, mensagensSchema);
-      
-      const novaMes = new mensagensDeUmaConversa({
-      emailLogado: message.emailLogado,
-      conteudo: message.mensagem
-      });
-
-      novaMes.save().then(()=>{
-      console.log('salvo com sucesso!')
-      }).catch((err)=>{
-      console.log(err);
-      });
-
-      mensagensDeUmaConversa.find({}).then((data)=>{
-        // console.log(data);  
-      socket.data.allMessages = data;
-      console.log(socket.data.allMessages);
-      io.emit(message.keyConversation, socket.data.allMessages);
-      }).catch((err)=>{
-      console.log(err);
-      })
+  socket.on('iniciarConversaEmail', email=>{
+    console.log(email);
   });
-
-  
-    socket.on('clickConversaAtual', action=>{
-
-    const mensagensDeUmaConversa = mongoose.model(action.keyConversation, mensagensSchema);
-
-    mensagensDeUmaConversa.find({}).then((data)=>{
-      socket.data.allMessages = data;
-      io.emit(action.keyConversation, socket.data.allMessages);
-      console.log("esse aqui é a key:" + action.keyConversation);
-    }).catch((err)=>{
-      console.log(err);
-    });
-  });
-
-  
 
 });
 

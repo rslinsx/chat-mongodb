@@ -18,6 +18,11 @@ function LoginForm(){
         setSenhaDigitada(e.target.value);
     };
 
+    function getEnterKey(e){
+        if(e.key === 'Enter')
+        {loginEnviar()};
+    };
+
     function loginEnviar(){
 
         fetch('http://localhost:8081/login', {
@@ -54,10 +59,10 @@ function LoginForm(){
                 </div>
                 <div className={styles.campoSenha}>
                     <label htmlFor='senha'>Senha: </label>
-                    <input type="password" id="senha" onChange={setarSenha}></input>
+                    <input type="password" id="senha" onChange={setarSenha} onKeyDown={(e)=>getEnterKey(e)}></input>
                 </div>
                 <div className={styles.campoBotaoEntrar}>
-                    <button onClick={loginEnviar}>Entrar</button> 
+                    <button onClick={loginEnviar} >Entrar</button> 
                 </div>
                 <div className={styles.campoBotaoRegistrar}>
                     <button><Link to="/cadastro">Registrar-se</Link></button> 

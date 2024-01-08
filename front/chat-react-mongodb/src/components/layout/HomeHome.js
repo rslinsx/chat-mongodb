@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom";
+import { useEffect } from 'react';
+
 
 
 function HomeHome(){
+ 
     return(
         <div>
-            <button><Link to="/login">login</Link></button>
+            <h1>Aqui é a home</h1>
         </div>
     )
 };  

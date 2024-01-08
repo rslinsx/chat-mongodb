@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState} from 'react';
 import MainScren from './components/layout/MainScren';
 import Navbar from './components/layout/Navbar';
 import TextScren from './components/layout/TextScren';
@@ -16,7 +16,6 @@ function App() {
   //marcador de login que será alterado para true quando usuario logar
   //o JSON.parse tranforma de string para valor boolenano da variável localstorage key
   const [estaLogado, setEstaLogado] = useState(JSON.parse(localStorage.getItem('key')));
-  const [socket, setSocket] = useState(null);
 
   function logOut(){
     localStorage.setItem('key', false);
@@ -29,11 +28,11 @@ function App() {
             <Router>
               {estaLogado && <Navbar sair={logOut}/>}
               <Routes>
-                <Route path='/' element={!estaLogado && <HomeHome/>}/>
-                <Route path="/mensagens" element={estaLogado ? <TextScren socket={socket}/> : <Navigate to="/login"/>}/>
+                <Route path='/' element={ estaLogado ? <HomeHome/> : <Navigate to="/login"/> }/>
+                <Route path="/mensagens" element={estaLogado ? <TextScren/> : <Navigate to="/login"/>}/>
                 <Route path="/crm" element={estaLogado ? <Crm/> : <Navigate to="/login"/>}/>
                 <Route path="/perfil" element={estaLogado ? <Perfil/> : <Navigate to="/login"/>}/>
-                <Route path="/login" element={estaLogado ? <Navigate to="/mensagens"/> : <LoginForm setSocket={setSocket}/>}/>
+                <Route path="/login" element={estaLogado ? <Navigate to="/"/> : <LoginForm/>}/>
                 <Route path="/cadastro" element={<Register/>}/>
               </Routes>
             </Router>  
