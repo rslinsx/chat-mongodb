@@ -1,5 +1,6 @@
 import styles from "./TextScren.module.css";
 import React, { useState, useEffect, useRef } from 'react';
+import io, { Socket } from 'socket.io-client';
 
 function TextScren({socket}){
 
@@ -7,7 +8,8 @@ function TextScren({socket}){
     const messageRef = useRef();
     const socketRef = useRef();
     const rolagemRef = useRef();
-    const [keyMomentChat, setKeyMomentChat] = useState('');    
+    const [keyMomentChat, setKeyMomentChat] = useState('');   
+    const [socketAtual, setSocketAtual] = useState(null); 
     
     function generateConversationKey(email1, email2) {
         const sortedEmails = [email1, email2].sort();
@@ -33,23 +35,28 @@ function TextScren({socket}){
 
 
     //logica socket
+    useEffect(()=>{
+        const socket = io.connect('http://localhost:8081');
+
+        // Escuta o evento 'connect' que é disparado quando a conexão é estabelecida
+        socket.on('connect', () => {
+            setSocketAtual(socket);
+        });
+
+        socket.on('listaDeConversas', lista=>{
+            console.log(lista)
+        })
+    
+        return () => {
+            socket.disconnect();
+        };
+
+    },[])
    
 
     return(
-        <div className={styles.textScren}>
-            <div className={styles.telaContatos}>
-            </div>
-            <div className={styles.textScrenMess}>
-                <div className={styles.textMensagens}>
-                    <div ref={rolagemRef}></div>
-                </div>
-                <div>
-                    <div className={styles.inputScren}>
-                        <input id="send"type="text" ref={messageRef} onKeyDown={(e)=>getEnterKey(e)}/>
-                        <button id="buttonSend">Enviar</button>
-                    </div>
-                </div>
-            </div>
+        <div className={styles.allScrenMessage}>
+            <div className={styles.campoLateral}> separação </div>
 
         </div>
     );

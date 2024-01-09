@@ -122,7 +122,6 @@ function Crm(){
     function setarEmailIniciarConversa(email){
         socketMomento.emit('iniciarConversaEmail', email);
         setEmailParaIniciarConversa(email);
-        console.log(email);
 
         
     };
