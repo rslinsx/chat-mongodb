@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
 import styles from "./Crm.module.css";
 import { Link } from 'react-router-dom';
-import io, { Socket } from 'socket.io-client';
 
-function Crm(){ 
+function Crm({socket}){ 
     
     const [mostrarJanelaProcurar, setMostarJanelaProcurar] = useState(false);
     const [mostrarJanelaCadastro, setMostrarJanelaCadastro] = useState(false);
@@ -128,18 +127,9 @@ function Crm(){
 
     // Lógica socket // iniciar conversa
 
-    useEffect(() => {
-        const socket = io.connect('http://localhost:8081');
-    
-        // Escuta o evento 'connect' que é disparado quando a conexão é estabelecida
-        socket.on('connect', () => {
-            setSocketmomento(socket);
-        });
-    
-        return () => {
-            socket.disconnect();
-        };
-    }, []);
+    function teste(email){
+        socket.emit('EscutarInicio', email);
+    };
 
     return(
         <div className={styles.telaMaiorCrm}>
@@ -156,7 +146,7 @@ function Crm(){
                 <div className={styles.contactUnic} id={contatoEncontrado.email}>
                     <h3>{contatoEncontrado.email}</h3>
                     <p>{contatoEncontrado.firstname} {contatoEncontrado.lastname}</p>
-                    <Link to ="/mensagens"><button onClick={()=> setarEmailIniciarConversa(contatoEncontrado.email)}>Iniciar conversa</button></Link>
+                    <Link to ="/mensagens"><button onClick={()=> teste(contatoEncontrado.email)}>Iniciar conversa</button></Link>
                     
                 </div>
                 ))}

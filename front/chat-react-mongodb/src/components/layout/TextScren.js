@@ -1,6 +1,5 @@
 import styles from "./TextScren.module.css";
 import React, { useState, useEffect, useRef } from 'react';
-import io, { Socket } from 'socket.io-client';
 
 function TextScren({socket}){
 
@@ -32,26 +31,6 @@ function TextScren({socket}){
     function rolagemScren(){
         rolagemRef.current.scrollIntoView({behavior: 'smooth'})
     };
-
-
-    //logica socket
-    useEffect(()=>{
-        const socket = io.connect('http://localhost:8081');
-
-        // Escuta o evento 'connect' que é disparado quando a conexão é estabelecida
-        socket.on('connect', () => {
-            setSocketAtual(socket);
-        });
-
-        socket.on('listaDeConversas', lista=>{
-            console.log(lista)
-        })
-    
-        return () => {
-            socket.disconnect();
-        };
-
-    },[])
    
 
     return(

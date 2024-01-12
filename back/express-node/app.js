@@ -32,10 +32,15 @@ io.on('connection', socket => {
   socket.on('disconnect', reason=>{
     console.log('usuário desconectado!', socket.id)});
 
-  socket.on('iniciarConversaEmail', email=>{
-    socket.emit('listaDeConversas', email);
-    console.log(email);
+  socket.on('teste', message=>{
+    console.log(message);
   });
+
+  socket.on('EscutarInicio', response=>{
+    io.emit(`${response}EscutarInicio`, response);
+  })
+
+
 
 });
 

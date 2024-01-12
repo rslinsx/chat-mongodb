@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { useEffect, useState} from 'react';
 import MainScren from './components/layout/MainScren';
 import Navbar from './components/layout/Navbar';
 import TextScren from './components/layout/TextScren';
@@ -9,6 +9,7 @@ import './App.css';
 import LoginForm from './components/layout/LoginForm';
 import Register from './components/layout/Register';
 import HomeHome from './components/layout/HomeHome';
+import io, { Socket } from 'socket.io-client';
 
 function App() {
 
@@ -16,10 +17,28 @@ function App() {
   //marcador de login que será alterado para true quando usuario logar
   //o JSON.parse tranforma de string para valor boolenano da variável localstorage key
   const [estaLogado, setEstaLogado] = useState(JSON.parse(localStorage.getItem('key')));
+  const [socketUnic, setSocketUnic] = useState(null);
 
   function logOut(){
     localStorage.setItem('key', false);
   };
+
+
+
+  //lógicaSocketConexão
+  useEffect(()=>{
+    const socket = io.connect('http://localhost:8081');
+
+    // Escuta o evento 'connect' que é disparado quando a conexão é estabelecida
+    socket.on('connect', () => {
+        setSocketUnic(socket);
+    });
+
+    socket.on(`${localStorage.getItem('email')}EscutarInicio`, response=>{
+      console.log(response);
+    })
+
+  }, []);
 
   return (
     <div className="App">
@@ -30,7 +49,7 @@ function App() {
               <Routes>
                 <Route path='/' element={ estaLogado ? <HomeHome/> : <Navigate to="/login"/> }/>
                 <Route path="/mensagens" element={estaLogado ? <TextScren/> : <Navigate to="/login"/>}/>
-                <Route path="/crm" element={estaLogado ? <Crm/> : <Navigate to="/login"/>}/>
+                <Route path="/crm" element={estaLogado ? <Crm socket={socketUnic}/> : <Navigate to="/login"/>}/>
                 <Route path="/perfil" element={estaLogado ? <Perfil/> : <Navigate to="/login"/>}/>
                 <Route path="/login" element={estaLogado ? <Navigate to="/"/> : <LoginForm/>}/>
                 <Route path="/cadastro" element={<Register/>}/>
