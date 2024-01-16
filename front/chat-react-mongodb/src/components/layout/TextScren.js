@@ -1,7 +1,7 @@
 import styles from "./TextScren.module.css";
 import React, { useState, useEffect, useRef } from 'react';
 
-function TextScren({socket}){
+function TextScren({socket, listDeConversas}){
 
     const [messages, setMessages] = useState([]);
     const messageRef = useRef();
@@ -35,7 +35,27 @@ function TextScren({socket}){
 
     return(
         <div className={styles.allScrenMessage}>
-            <div className={styles.campoLateral}> separação </div>
+            <div className={styles.campoLateral}>
+
+                {listDeConversas.map((cadaConversa)=>(
+                    <div className={styles.conversaUnica}>
+                        <p>{cadaConversa.emailConversaAtual}</p>
+                    </div>
+                ))}
+            </div>
+
+            <div className={styles.telaDeConversas}>
+                    <div className={styles.telaComMensagens}>
+                        
+                        telaDeConversas
+                    
+                    </div>
+                    
+                    <div>
+                        <input type="text"></input>
+                        <button>Enviar</button>
+                    </div>
+            </div>
 
         </div>
     );

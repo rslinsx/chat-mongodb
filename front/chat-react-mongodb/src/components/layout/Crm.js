@@ -87,11 +87,10 @@ function Crm({socket}){
             return response.json();
         })
         .then(data=>{
-            console.log(data);
             setcontatosEncontradosCrm(data);
-            contatosEncontradosCrm.map((c)=>{
-                console.log(c.email);
-            });
+            // contatosEncontradosCrm.map((c)=>{
+            //     console.log(c.email);
+            // });
         })
         .catch(error => {
             console.log(error);
@@ -128,7 +127,8 @@ function Crm({socket}){
     // Lógica socket // iniciar conversa
 
     function teste(email){
-        socket.emit('EscutarInicio', email);
+        socket.emit('EmitirInicio', {emailIniciado: email, emailIniciou: localStorage.getItem('email')});
+        socket.emit("ListaDeConversas", localStorage.getItem('email'));
     };
 
     return(

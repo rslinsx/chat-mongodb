@@ -16,6 +16,11 @@ const userSchema = new mongoose.Schema({
     chave: Boolean
 });
 
+const listConversas = new mongoose.Schema({
+    emailConversaAtual: String
+});
+
+
 const crmSchema = new mongoose.Schema({
     email: String,
     firstname: String,
@@ -95,7 +100,8 @@ module.exports =  {
      Mensagem: Mensagem,
      newUser: newUser,
      crmSchema: crmSchema,
-     mensagensSchema: mensagensSchema
+     mensagensSchema: mensagensSchema,
+     listConversas: listConversas
 }
 
 

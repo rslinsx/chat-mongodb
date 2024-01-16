@@ -9,3 +9,21 @@
     width: 25vw;
     background-color: grey;
 }
+
+.conversaUnica {
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.conversaUnica :hover{
+
+    background-color: blanchedalmond;
+
+}
+
+.telaDeConversas {
+    background-color: brown;
+    width: 75vw;
+    display: flex;
+}
+

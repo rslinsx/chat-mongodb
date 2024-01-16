@@ -3,7 +3,7 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const cors = require('cors');
-const {newUser, Mensagem, crmSchema, mensagensSchema} = require("./mongodb");
+const {newUser, Mensagem, crmSchema, mensagensSchema, listConversas} = require("./mongodb");
 const { default: mongoose } = require('mongoose');
 
 
@@ -36,9 +36,75 @@ io.on('connection', socket => {
     console.log(message);
   });
 
-  socket.on('EscutarInicio', response=>{
-    io.emit(`${response}EscutarInicio`, response);
-  })
+  socket.on('EmitirInicio', response=>{
+
+    const novaConversaDeIniciado = mongoose.model(`${response.emailIniciado}ListaDeConversa`, listConversas);
+    const novaConversaDeIniciou = mongoose.model(`${response.emailIniciou}ListaDeConversa`, listConversas);
+
+    const newConversa = new novaConversaDeIniciado({
+      emailConversaAtual: response.emailIniciou,
+    });
+    
+    const newOutraConversa = new novaConversaDeIniciou({
+      emailConversaAtual: response.emailIniciado
+    });
+
+    novaConversaDeIniciado.find({emailConversaAtual: response.emailIniciou}).then((data)=>{
+      if (data.length === 0) {
+          newConversa.save().then(()=>{
+            novaConversaDeIniciado.find({}).then((dataAll)=>{
+                io.emit(`${response.emailIniciado}ListaDeConversaAtual`, dataAll);
+            }).catch((err)=>{
+              console.log(err);
+            })}).catch((err)=>{
+            console.log(err)
+          });
+      }else{
+        console.log("oi " + response.emailIniciado + 'Você já possui uma conversa com esse email: ' + response.emailIniciou);
+      };
+    });
+    
+    novaConversaDeIniciou.find({emailConversaAtual: response.emailIniciado}).then((data)=>{
+      if (data.length === 0) {
+        newOutraConversa.save().then(()=>{
+          novaConversaDeIniciou.find({}).then((dataAll)=>{
+              io.emit(`${response.emailIniciou}ListaDeConversaAtual`, dataAll);
+          }).catch((err)=>{
+            console.log(err);
+          })}).catch((err)=>{
+          console.log(err)
+        });
+      }else{
+        console.log("oi " + response.emailIniciou + 'Você já possui uma conversa com esse email: ' + response.emailIniciado);
+      }
+    })
+
+    
+
+  // socket.emit('ListaDeConversas', email=>{
+  //    const listDeConversas = mongoose.model(`${email}ListaDeConversa`, listConversas);
+
+  //    listDeConversas.find({}).then((data)=>{
+  //     console.log(data);
+  //    }).catch((err)=>{
+  //     console.log(err);
+  //    });
+  // });
+
+  });
+
+
+  socket.on('listaDeConversaAtual', response=>{
+      const listDeConversas = mongoose.model(`${response}ListaDeConversa`, listConversas);
+    
+      listDeConversas.find({}).then((data)=>{
+        socket.emit(`${response}ListaDeConversaAtual`, data);
+      }).catch((err)=>{
+        console.log(err);
+       });
+  });
+
+
 
 
 

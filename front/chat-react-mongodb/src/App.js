@@ -18,6 +18,7 @@ function App() {
   //o JSON.parse tranforma de string para valor boolenano da variável localstorage key
   const [estaLogado, setEstaLogado] = useState(JSON.parse(localStorage.getItem('key')));
   const [socketUnic, setSocketUnic] = useState(null);
+  const [listDeConversas, setListDeConversas] = useState(null);
 
   function logOut(){
     localStorage.setItem('key', false);
@@ -32,11 +33,19 @@ function App() {
     // Escuta o evento 'connect' que é disparado quando a conexão é estabelecida
     socket.on('connect', () => {
         setSocketUnic(socket);
+        socket.emit('listaDeConversaAtual', localStorage.getItem('email'));
     });
 
-    socket.on(`${localStorage.getItem('email')}EscutarInicio`, response=>{
+    socket.on(`${localStorage.getItem('email')}ListaDeConversa`, response=>{
       console.log(response);
     })
+    
+    socket.on(`${localStorage.getItem('email')}ListaDeConversaAtual`, response=>{
+      setListDeConversas(response);
+    })
+    ;
+
+
 
   }, []);
 
@@ -48,7 +57,7 @@ function App() {
               {estaLogado && <Navbar sair={logOut}/>}
               <Routes>
                 <Route path='/' element={ estaLogado ? <HomeHome/> : <Navigate to="/login"/> }/>
-                <Route path="/mensagens" element={estaLogado ? <TextScren/> : <Navigate to="/login"/>}/>
+                <Route path="/mensagens" element={estaLogado ? <TextScren listDeConversas={listDeConversas}/> : <Navigate to="/login"/>}/>
                 <Route path="/crm" element={estaLogado ? <Crm socket={socketUnic}/> : <Navigate to="/login"/>}/>
                 <Route path="/perfil" element={estaLogado ? <Perfil/> : <Navigate to="/login"/>}/>
                 <Route path="/login" element={estaLogado ? <Navigate to="/"/> : <LoginForm/>}/>
