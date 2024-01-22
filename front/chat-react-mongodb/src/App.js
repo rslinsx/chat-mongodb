@@ -57,7 +57,7 @@ function App() {
               {estaLogado && <Navbar sair={logOut}/>}
               <Routes>
                 <Route path='/' element={ estaLogado ? <HomeHome/> : <Navigate to="/login"/> }/>
-                <Route path="/mensagens" element={estaLogado ? <TextScren listDeConversas={listDeConversas}/> : <Navigate to="/login"/>}/>
+                <Route path="/mensagens" element={estaLogado ? <TextScren listDeConversas={listDeConversas} socketUnic={socketUnic}/> : <Navigate to="/login"/>}/>
                 <Route path="/crm" element={estaLogado ? <Crm socket={socketUnic}/> : <Navigate to="/login"/>}/>
                 <Route path="/perfil" element={estaLogado ? <Perfil/> : <Navigate to="/login"/>}/>
                 <Route path="/login" element={estaLogado ? <Navigate to="/"/> : <LoginForm/>}/>

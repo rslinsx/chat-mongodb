@@ -25,5 +25,28 @@
     background-color: brown;
     width: 75vw;
     display: flex;
+    flex-direction: column;
+}
+
+.telaComMensagens {
+    background-color: whitesmoke;
+    height: 80vh;
+    border: 1px solid red;
+    overflow-y: scroll;
+    overflow-x: initial;
+}
+
+.cadaMensagem{
+    word-wrap: break-word;
+}
+
+.campoDeDigitacao input {
+    width: 60vw;
+    height: 8vh;
+}
+
+.campoDeDigitacao button {
+    width: 8vw;
+    height: 8vh;
 }
 

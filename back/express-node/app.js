@@ -79,18 +79,6 @@ io.on('connection', socket => {
       }
     })
 
-    
-
-  // socket.emit('ListaDeConversas', email=>{
-  //    const listDeConversas = mongoose.model(`${email}ListaDeConversa`, listConversas);
-
-  //    listDeConversas.find({}).then((data)=>{
-  //     console.log(data);
-  //    }).catch((err)=>{
-  //     console.log(err);
-  //    });
-  // });
-
   });
 
 
@@ -104,6 +92,32 @@ io.on('connection', socket => {
        });
   });
 
+
+  socket.on('cliqueiNessaConversa', response=>{
+    const newMessageModel = mongoose.model(`${response}Mensagen`, mensagensSchema);
+    newMessageModel.find({}).then((data)=>{
+      io.emit(`${response}conversaemsi`, data);
+    })
+    
+  });
+
+  socket.on('enviarMensagem', response=>{
+    const newMessageModel = mongoose.model(`${response.keyMomentChat}Mensagen`, mensagensSchema);
+    
+    const newMessage = new newMessageModel({
+      emailLogado: response.emailQueEnviou,
+      conteudo: response.mensagem
+    }); 
+
+    newMessage.save().then(()=>{
+      newMessageModel.find({}).then((data)=>{
+        io.emit(`${response.keyMomentChat}conversaemsi`, data);
+      })
+    }).catch((err)=>{
+      console.log(err);
+    });
+
+  })
 
 
 
@@ -144,6 +158,8 @@ io.on('connection', socket => {
       })
   });
 
+
+  //Rota que verifica login e senha
   app.post('/login', (req, res)=>{
     newUser.findOne(req.body).then((data)=>{
       res.json(data);
@@ -152,7 +168,7 @@ io.on('connection', socket => {
   });
 
   });
-
+  
   app.post("/crm/procurar", (req, res)=>{
       newUser.findOne(req.body).then((data)=>{
         console.log(req.body);
