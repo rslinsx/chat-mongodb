@@ -61,7 +61,7 @@ function App() {
                 <Route path="/crm" element={estaLogado ? <Crm socket={socketUnic}/> : <Navigate to="/login"/>}/>
                 <Route path="/perfil" element={estaLogado ? <Perfil/> : <Navigate to="/login"/>}/>
                 <Route path="/login" element={estaLogado ? <Navigate to="/"/> : <LoginForm/>}/>
-                <Route path="/cadastro" element={<Register/>}/>
+                <Route path="/cadastro" element={estaLogado ? <Navigate to="/"/> : <Register/>}/>
               </Routes>
             </Router>  
             </MainScren>

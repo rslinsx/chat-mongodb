@@ -1,12 +1,28 @@
 .divCrm {
-    border: 1px solid black;
     display: flex;
     flex-direction: column;
     width: 300px;
     align-items: center;
     height: 150px;
     margin: auto auto;
-    
+    background-color: grey; 
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+}
+
+.divCrm button {
+    padding: 10px;
+    width: 110px;
+    border-radius: 15px;
+    border: none;
+    width: 15vw;
+    background-color: whitesmoke;   
+    transition: background-color 0.4s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+}
+
+.divCrm button:hover{
+    background-color: whitesmoke;
 }
 
 .container {
@@ -16,9 +32,17 @@
 }
 
 .contactUnic {
-    border: 1px solid black;
+    background-color: grey; 
+    border-radius: 15px;
     width: 250px;
     margin: 3px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+}
+
+.contactUnic button {
+    background-color: whitesmoke;
+    border-radius: 15px;
+    padding: 5px;
 }
 
 button:hover {
@@ -27,20 +51,53 @@ button:hover {
 
 .janelaCadastroContato {
     position: absolute;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
     border: 1px solid black;
+    justify-content: space-between;
+    align-items: center;
     width: 300px;
+    height: 130px;
     margin-left: 38vw;
     top: 20vh;
-    background-color: #778899;
-    padding: 25px;
-    border-radius: 10px;
+    background-color: #4095D1;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1)
 }
+
+.janelaCadastroContato input {
+    padding: 10px;
+    width: 20vw;
+    border: none;
+    border-radius: 15px;
+    background-color: whitesmoke;
+}
+
+.janelaCadastroContato input:focus {
+    outline: none;
+    border: none;
+}   
+
+.botaoDeProcurarContato {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    background-color: whitesmoke;
+    border: none;
+    border-radius: 15px;
+    padding: 10px;
+    text-decoration: none;
+    width: 15vw;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1)
+}
+
 
 .botaoFecharCadastro {
     display: flex;
     align-items: right;
     justify-content: right;
+    width: 100%;
 }
 
 .overlay {
@@ -55,11 +112,15 @@ button:hover {
 
 .janelaCadastroContatoEncontrado {
     position: absolute;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     border: 1px solid black;
-    width: 300px;
+    width: 400px;
+    height: 200px;
     margin-left: 38vw;
-    top: 40vh;
+    top: 20vh;
+    right: 35vw;
     background-color: #778899;
     padding: 25px;
     border-radius: 10px;

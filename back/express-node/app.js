@@ -199,7 +199,7 @@ io.on('connection', socket => {
        res.json('Esse email já está incluído no seu CRM')
      }})});
 
-
+  //rota de cadastro de usuario
   app.post("/registro", (req, res)=>{
     newUser.findOne({email: req.body.email}).then((data)=>{
       if (data === null) {

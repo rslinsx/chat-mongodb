@@ -98,7 +98,7 @@ function TextScren({socketUnic, listDeConversas}){
                     </div>
                     
                     <div className={styles.campoDeDigitacao}>
-                        <input type="text" ref={messageRef} onKeyDown={(e)=>getEnterKey(e)}></input>
+                        <input type="text" className = {styles.campoDeDigitacaoFinal} ref={messageRef} onKeyDown={(e)=>getEnterKey(e)}></input>
                         <button onClick={()=> enviarMensagem()}>Enviar</button>
                     </div>
             </div>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./Register.module.css";
-
+import { Link } from 'react-router-dom';
 
 function Register(){
 
@@ -52,26 +52,35 @@ function Register(){
 
 
     return(
-        <div>   
-             <div>
-                    <label htmlFor='email'>Email: </label>
-                    <input onChange={setarEmailCadastro} type="email" id="email"></input>
+        <div  className={styles.mainScrenRegister}>   
+              
+            <div className={styles.ScrenRegister} >
+                <h1>Cadastre o seu acesso!</h1>  
+                <div className={styles.ScrenCampos}>  
+                    <div>
+                        <label htmlFor='email'></label>
+                        <input onChange={setarEmailCadastro} type="email" placeholder="Digite aqui o seu email válido"id="email"></input>
+                    </div>
+                    <div>
+                        <label htmlFor='senha'></label>
+                        <input onChange={setarSenhaCadastro}type="password" placeholder="Crie uma senha forte"id="senha"></input>
+                    </div>
+                    <div>
+                        <label htmlFor='nome'></label>
+                        <input onChange={setarNomeCadastro} type="text" placeholder="Digite o seu primeiro nome" id="nome"></input>
+                    </div>
+                    <div>
+                        <label htmlFor='sobrenome'></label>
+                        <input onChange={setarSobreNomeCadastro} type="text" placeholder="Digite o seu sobrenome" id="sobrenome"></input>
+                    </div>
+                    <div>
+                        <button onClick={cadastrarNovoUsuario}>Cadastrar</button> 
+                    </div>
+                    <div>
+                        <Link to="/login" className={styles.botaoHome}>Ir para página de Login</Link>
+                    </div>
                 </div>
-                <div>
-                    <label htmlFor='senha'>Senha: </label>
-                    <input onChange={setarSenhaCadastro}type="password" id="senha"></input>
-                </div>
-                <div>
-                    <label htmlFor='nome'>Nome: </label>
-                    <input onChange={setarNomeCadastro} type="text" id="nome"></input>
-                </div>
-                <div>
-                    <label htmlFor='sobrenome'>Sobrenome: </label>
-                    <input onChange={setarSobreNomeCadastro} type="text" id="sobrenome"></input>
-                </div>
-                <div>
-                    <button onClick={cadastrarNovoUsuario}>Cadastrar</button> 
-                </div>
+             </div>    
         </div>
     )
 };

@@ -126,7 +126,7 @@ function Crm({socket}){
 
     // Lógica socket // iniciar conversa
 
-    function teste(email){
+    function iniciarConversa(email){
         socket.emit('EmitirInicio', {emailIniciado: email, emailIniciou: localStorage.getItem('email')});
         socket.emit("ListaDeConversas", localStorage.getItem('email'));
     };
@@ -146,7 +146,7 @@ function Crm({socket}){
                 <div className={styles.contactUnic} id={contatoEncontrado.email}>
                     <h3>{contatoEncontrado.email}</h3>
                     <p>{contatoEncontrado.firstname} {contatoEncontrado.lastname}</p>
-                    <Link to ="/mensagens"><button onClick={()=> teste(contatoEncontrado.email)}>Iniciar conversa</button></Link>
+                    <Link to ="/mensagens"><button onClick={()=> iniciarConversa(contatoEncontrado.email)}>Iniciar conversa</button></Link>
                     
                 </div>
                 ))}
@@ -157,16 +157,17 @@ function Crm({socket}){
                 <div className={styles.botaoFecharCadastro}>
                     <button onClick={fecharJanelaCadastro}>X</button>
                 </div>
-                <hr/>
-                <label htmlFor="email">Email: </label>
-                <input id="email" onChange={setarEmailProcurado}/>
-                <button onClick={procurarEmail}>Procurar</button>
+                <input id="email"  placeholder="Digite o email completo"onChange={setarEmailProcurado}/>
+                <button className={styles.botaoDeProcurarContato} onClick={procurarEmail}>Procurar</button>
             </div>)} 
 
             {mostrarJanelaCadastro && (<div className={styles.janelaCadastroContatoEncontrado}>
+                <div className={styles.botaoFecharCadastro}>
+                    <button onClick={fecharJanelaCadastro}>X</button>
+                </div>
                 <h4>nome: {nomeContatoEncontrado} {ultimoNomeContatoEncontrado}</h4>
                 <p>email: {emailContatoEncontrado} </p>
-                <button onClick={incluirContatoCrm}>Incluir contato no CRM</button>
+                <button className={styles.botaoDeProcurarContato}onClick={incluirContatoCrm}>Incluir contato no CRM</button>
             </div>)}    
 
 

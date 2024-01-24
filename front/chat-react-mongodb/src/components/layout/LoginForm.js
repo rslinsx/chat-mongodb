@@ -9,6 +9,7 @@ function LoginForm(){
     
     const [emailDigitado,setEmailDigitado] = useState('');
     const [senhadigitada, setSenhaDigitada] = useState('');
+    
 
     function setarEmail(e){
         setEmailDigitado(e.target.value);
@@ -48,9 +49,6 @@ function LoginForm(){
     }; 
 
     
-
-   
-
     return(
             <div className={styles.telaMaiorLogin}>
                 <h1>Bem-vindo ao Full-Chat!</h1>

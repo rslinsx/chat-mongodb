@@ -22,7 +22,6 @@
 }
 
 .telaDeConversas {
-    background-color: brown;
     width: 75vw;
     display: flex;
     flex-direction: column;
@@ -31,7 +30,6 @@
 .telaComMensagens {
     background-color: whitesmoke;
     height: 80vh;
-    border: 1px solid red;
     overflow-y: scroll;
     overflow-x: initial;
 }
@@ -43,10 +41,33 @@
 .campoDeDigitacao input {
     width: 60vw;
     height: 8vh;
+    border: none;
+    border-radius: 15px;
+    background-color: whitesmoke;
+    overflow-y: scroll;
+    overflow-x: initial;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    border: 1px solid #4095D1;
 }
+
+.campoDeDigitacao input:focus{
+    outline: none;
+}
+
+
 
 .campoDeDigitacao button {
     width: 8vw;
     height: 8vh;
+    border: none;
+    border-radius: 15px;
+    background-color: whitesmoke;
+    background-color: #4095D1;
+}
+
+.campoDeDigitacao button:hover {
+    background-color: #E89E09;
+    transition: 0.5s;
 }
 

@@ -1,3 +1,8 @@
+body{
+    background-color: whitesmoke;
+}
+
+
 .telaMaiorLogin {
     display: flex;
     flex-direction: column;
@@ -68,8 +73,14 @@
 } 
 
 
-.campoBotaoRegistrar {
+.campoBotaoRegistrar button {
     display: flex;
     justify-content: center;
     margin-top: 15px;
+    background-color: #E89E09;
+    border: none;
+    border-radius: 15px;
+    padding: 10px;
+    text-decoration: none;
 }
+

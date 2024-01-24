@@ -1,0 +1,63 @@
+.mainScrenRegister {
+    width: 100vw;
+    height: 100vh;
+}
+
+
+.ScrenRegister {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    background-color: #4095D1;
+    width: 40vw;
+    height: 50vh;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+}
+
+.ScrenRegister input:focus {
+    outline: none;
+    border: none;
+}
+
+.ScrenRegister input {
+    padding: 10px;
+    width: 20vw;
+    border: none;
+    border-radius: 15px;
+    background-color: whitesmoke;
+}
+
+.ScrenRegister button {
+    padding: 10px;
+    width: 110px;
+    border-radius: 15px;
+    border: none;
+    width: 15vw;
+    background-color: #E89E09;
+    transition: background-color 0.4s ease;
+}
+
+.ScrenRegister h1 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+}
+
+.ScrenCampos{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    height: 30vh;
+    align-items: center;
+}
+
+.botaoHome{
+    background-color: #E89E09;
+    border-radius: 15px;
+    text-decoration: none;
+}

@@ -4,7 +4,7 @@
     height: 10%;
     /* border: 1px solid black; */
     justify-content: space-between;
-    background-color: #778899;
+    background-color: #4095D1;
     border-radius: 2px;
 }
 
@@ -21,17 +21,25 @@
     padding: 10px;
     cursor: pointer;
     font-size: 18px;
+    font-family: 'Roboto', sans-serif;
 }
 
-.mainNavbar li:hover {
+.optionsMenu {
+    text-decoration: none;
     color: #F0F8FF;
+}
+
+
+.optionsMenu:hover {
+    color: #E89E09;
     transition: 0.4s;
 }
 
 
 .emailDoMomento {
-    border: 1px solid black;
     margin-left: 20px;
     padding: 5px;
     border-radius: 5px;
+    background-color: whitesmoke;
+    font-family: 'Roboto', sans-serif;
 }
