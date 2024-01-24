@@ -52,14 +52,17 @@ function LoginForm(){
    
 
     return(
-            <div className={styles.telaMaior}>
-                <div className={styles.campoEmail}>
-                    <label htmlFor='email'>Email: </label>
-                    <input type="email" id="email" onChange={setarEmail}></input>
-                </div>
-                <div className={styles.campoSenha}>
-                    <label htmlFor='senha'>Senha: </label>
-                    <input type="password" id="senha" onChange={setarSenha} onKeyDown={(e)=>getEnterKey(e)}></input>
+            <div className={styles.telaMaiorLogin}>
+                <h1>Bem-vindo ao Full-Chat!</h1>
+                <div className={styles.campoLoginESenha}>
+                    <div className={styles.digitarloginesenha}>
+                        <label htmlFor='email'></label>
+                        <input type="email" id="email" placeholder='email' onChange={setarEmail}></input>
+                    </div>
+                    <div className={styles.digitarloginesenha}>
+                        <label htmlFor='senha'> </label>
+                        <input type="password" id="senha" placeholder='senha' onChange={setarSenha} onKeyDown={(e)=>getEnterKey(e)}></input>
+                    </div>
                 </div>
                 <div className={styles.campoBotaoEntrar}>
                     <button onClick={loginEnviar} >Entrar</button> 

@@ -1,26 +1,44 @@
-.telaMaior {
+.telaMaiorLogin {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 400px;
-    height: 400px;
+    align-items: center;
+    width: 600px;
+    height: 600px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); 
-    border: 1px solid black;
-    border-radius: 5px;
+    background-image: url('../../imagemlogin.jpg'); 
+    background-size: cover;
+    background-position: center;
+}
+.telaMaiorLogin h1 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
 }
 
-.campoEmail {
+
+.campoLoginESenha{
     display: flex;
-    justify-content: center;
-    margin-bottom: 5px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 20vw;
+    height: 12vh;
 }
 
-.campoSenha {
-    display: flex;
-    justify-content: center;
+.digitarloginesenha input {
+    padding: 10px;
+    width: 20vw;
+    border: none;
+    border-radius: 15px;
+    background-color: whitesmoke;
+}
+
+.digitarloginesenha input:focus {
+    outline: none;
+    border: none;
 }
 
 .campoSenha input{
@@ -32,12 +50,22 @@
     display: flex;
     justify-content: center;
     margin-top: 15px;
+    
 }
 
 .campoBotaoEntrar button {
     padding: 10px;
     width: 110px;
+    border-radius: 15px;
+    border: none;
+    width: 15vw;
+    background-color: #4095D1;
+    transition: background-color 0.4s ease;
 }
+
+.campoBotaoEntrar button:hover {
+    background-color: #E89E09;
+} 
 
 
 .campoBotaoRegistrar {
