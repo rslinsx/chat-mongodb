@@ -5,7 +5,7 @@
     align-items: center;
     height: 150px;
     margin: auto auto;
-    background-color: grey; 
+    background-color: whitesmoke;  
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
 }
@@ -16,13 +16,14 @@
     border-radius: 15px;
     border: none;
     width: 15vw;
-    background-color: whitesmoke;   
+    background-color: grey;   
     transition: background-color 0.4s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
 }
 
 .divCrm button:hover{
     background-color: whitesmoke;
+    cursor: pointer;
 }
 
 .container {
@@ -32,7 +33,7 @@
 }
 
 .contactUnic {
-    background-color: grey; 
+    background-color: whitesmoke; 
     border-radius: 15px;
     width: 250px;
     margin: 3px;
@@ -40,13 +41,14 @@
 }
 
 .contactUnic button {
-    background-color: whitesmoke;
+    background-color: grey;
     border-radius: 15px;
     padding: 5px;
 }
 
-button:hover {
+.contactUnic button:hover {
     cursor: pointer;
+    background-color: whitesmoke;
 }
 
 .janelaCadastroContato {

@@ -5,21 +5,19 @@
 }
 
 .campoLateral {
-    border: 1px solid black;
     width: 25vw;
-    background-color: grey;
+    background-color: whitesmoke;
+    border-radius: 15px;
 }
 
 .conversaUnica {
-    border: 1px solid black;
     cursor: pointer;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+    height: 10%;
+    width: 90%;
 }
 
-.conversaUnica :hover{
-
-    background-color: blanchedalmond;
-
-}
 
 .telaDeConversas {
     width: 75vw;
@@ -34,9 +32,25 @@
     overflow-x: initial;
 }
 
-.cadaMensagem{
+.mensagemEnviada {          
     word-wrap: break-word;
+    width: 40%;
+    background-color: #4095D1;
+    max-width: max-content;
+    min-width: 3%;
+    margin-left: auto;
+    border-radius: 10px;
+
 }
+
+.mensagemRecebida {
+    word-wrap: break-word;
+    background-color: grey;
+    width: 40%;
+    max-width: max-content;
+    border-radius: 10px;
+}
+
 
 .campoDeDigitacao input {
     width: 60vw;

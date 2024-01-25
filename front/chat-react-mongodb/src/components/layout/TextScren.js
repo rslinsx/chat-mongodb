@@ -1,5 +1,6 @@
 import styles from "./TextScren.module.css";
 import React, { useState, useEffect, useRef } from 'react';
+import moment from 'moment';
 
 function TextScren({socketUnic, listDeConversas}){
 
@@ -89,8 +90,11 @@ function TextScren({socketUnic, listDeConversas}){
             <div className={styles.telaDeConversas}>
                     <div className={styles.telaComMensagens}>
                        {messages.map((message)=>(
-                            <div className={styles.cadaMensagem}>
+                        
+                            <div className={message.emailLogado === localStorage.getItem('email') ? styles.mensagemEnviada : styles.mensagemRecebida}>
                                 <p>{message.conteudo}</p>
+
+                                <p>{moment(message.hora).format('HH:mm')}</p>
                             </div>
                             ))}
                         
