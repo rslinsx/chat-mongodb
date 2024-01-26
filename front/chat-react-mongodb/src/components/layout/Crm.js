@@ -117,17 +117,15 @@ function Crm({socket}){
         setEmailProcurado(e.target.value);
     };
 
-    function setarEmailIniciarConversa(email){
-        socketMomento.emit('iniciarConversaEmail', email);
-        setEmailParaIniciarConversa(email);
-
-        
-    };
-
     // Lógica socket // iniciar conversa
 
+    function generateConversationKey(email1, email2) {
+        const sortedEmails = [email1, email2].sort();
+        return `${sortedEmails[0]}_${sortedEmails[1]}`;
+    };
+
     function iniciarConversa(email){
-        socket.emit('EmitirInicio', {emailIniciado: email, emailIniciou: localStorage.getItem('email')});
+        socket.emit('EmitirInicio', {emailIniciado: email, emailIniciou: localStorage.getItem('email'), keyConversation: generateConversationKey(email, localStorage.getItem('email'))});
         socket.emit("ListaDeConversas", localStorage.getItem('email'));
     };
 

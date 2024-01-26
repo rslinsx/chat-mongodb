@@ -35,10 +35,6 @@ function App() {
         setSocketUnic(socket);
         socket.emit('listaDeConversaAtual', localStorage.getItem('email'));
     });
-
-    socket.on(`${localStorage.getItem('email')}ListaDeConversa`, response=>{
-      console.log(response);
-    })
     
     socket.on(`${localStorage.getItem('email')}ListaDeConversaAtual`, response=>{
       setListDeConversas(response);

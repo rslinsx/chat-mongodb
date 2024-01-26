@@ -43,10 +43,12 @@ io.on('connection', socket => {
 
     const newConversa = new novaConversaDeIniciado({
       emailConversaAtual: response.emailIniciou,
+      keyConversation: response.keyConversation
     });
     
     const newOutraConversa = new novaConversaDeIniciou({
-      emailConversaAtual: response.emailIniciado
+      emailConversaAtual: response.emailIniciado,
+      keyConversation: response.keyConversation
     });
 
     novaConversaDeIniciado.find({emailConversaAtual: response.emailIniciou}).then((data)=>{
@@ -92,6 +94,8 @@ io.on('connection', socket => {
        });
   });
 
+  // io.emit('nildo@gmail.com_teste@gmail.comLastMessage', 'teste');
+
 
   socket.on('cliqueiNessaConversa', response=>{
     const newMessageModel = mongoose.model(`${response}Mensagen`, mensagensSchema);
@@ -117,10 +121,7 @@ io.on('connection', socket => {
       console.log(err);
     });
 
-  })
-
-
-
+  });
 
 });
 

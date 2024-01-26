@@ -74,6 +74,15 @@ function TextScren({socketUnic, listDeConversas}){
         focusInput();
         rolagemScren();
     };
+
+    useEffect(()=>{
+        listDeConversas.map((response)=>{
+            console.log(response.keyConversation)
+            socketUnic.on(`${response.keyConversation}LastMessage`, response=>{
+                console.log(response);
+            });
+        })
+    },[]);
    
 
     return(
@@ -83,6 +92,7 @@ function TextScren({socketUnic, listDeConversas}){
                 {listDeConversas && listDeConversas.map((cadaConversa)=>(
                     <div className={styles.conversaUnica} onClick={()=>setarConversaAtualGerarChave(cadaConversa.emailConversaAtual, localStorage.getItem('email'))}>
                         <p>{cadaConversa.emailConversaAtual}</p>
+                        <p>teste</p>
                     </div>
                 ))}
             </div>

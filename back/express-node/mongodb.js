@@ -17,7 +17,8 @@ const userSchema = new mongoose.Schema({
 });
 
 const listConversas = new mongoose.Schema({
-    emailConversaAtual: String
+    emailConversaAtual: String,
+    keyConversation: String
 });
 
 
