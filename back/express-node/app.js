@@ -94,11 +94,8 @@ io.on('connection', socket => {
        });
   });
 
-  // io.emit('nildo@gmail.com_teste@gmail.comLastMessage', 'teste');
-
-
   socket.on('cliqueiNessaConversa', response=>{
-    const newMessageModel = mongoose.model(`${response}Mensagen`, mensagensSchema);
+    const newMessageModel = mongoose.model(`${response}Message`, mensagensSchema);
     newMessageModel.find({}).then((data)=>{
       io.emit(`${response}conversaemsi`, data);
     })
@@ -106,7 +103,7 @@ io.on('connection', socket => {
   });
 
   socket.on('enviarMensagem', response=>{
-    const newMessageModel = mongoose.model(`${response.keyMomentChat}Mensagen`, mensagensSchema);
+    const newMessageModel = mongoose.model(`${response.keyMomentChat}Message`, mensagensSchema);
     
     const newMessage = new newMessageModel({
       emailLogado: response.emailQueEnviou,
@@ -121,6 +118,17 @@ io.on('connection', socket => {
       console.log(err);
     });
 
+  });
+
+  socket.on('LastMessage', response=>{  
+    const messageModelToFind = mongoose.model(`${response}Message`, mensagensSchema);
+
+    messageModelToFind.find({}).then((lastMe)=>{
+      io.emit(`${response}LastMessage`, lastMe[(lastMe.length) - 1]);
+    }).catch((err)=>{
+      console.log(err);
+    })
+    
   });
 
 });

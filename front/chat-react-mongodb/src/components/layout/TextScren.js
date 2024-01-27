@@ -7,7 +7,8 @@ function TextScren({socketUnic, listDeConversas}){
     const [messages, setMessages] = useState([]);
     const messageRef = useRef();
     const rolagemRef = useRef();
-    const [keyMomentChat, setKeyMomentChat] = useState('');     
+    const [keyMomentChat, setKeyMomentChat] = useState(''); 
+    const [lastMessages, setLastMessages] = useState({});   
     
     function generateConversationKey(email1, email2) {
         const sortedEmails = [email1, email2].sort();
@@ -53,7 +54,6 @@ function TextScren({socketUnic, listDeConversas}){
         
         socketUnic.emit('cliqueiNessaConversa', keyMomentChat);
         socketUnic.on(`${keyMomentChat}conversaemsi`, response=>{
-            console.log(response);
             setMessages(response);
             
         });
@@ -70,18 +70,22 @@ function TextScren({socketUnic, listDeConversas}){
 
     function enviarMensagem(){
         socketUnic.emit('enviarMensagem', {keyMomentChat: keyMomentChat, emailQueEnviou: localStorage.getItem('email'), mensagem: messageRef.current.value});
+        socketUnic.emit('LastMessage', keyMomentChat);
         clearInput();
         focusInput();
         rolagemScren();
     };
 
+
+    //escutando última mensagem socket, com um map para criar um socket on para cada key de cada conversa 
     useEffect(()=>{
-        listDeConversas.map((response)=>{
-            console.log(response.keyConversation)
-            socketUnic.on(`${response.keyConversation}LastMessage`, response=>{
-                console.log(response);
+        listDeConversas.map((cadaConversaUnica)=>{
+            socketUnic.on(`${cadaConversaUnica.keyConversation}LastMessage`, teste=>{
+                setLastMessages(lastMessages[cadaConversaUnica.keyConversation]) = teste;
+                console.log(lastMessages);
             });
-        })
+        });
+
     },[]);
    
 
