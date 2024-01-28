@@ -41,7 +41,6 @@ function TextScren({socketUnic, listDeConversas}){
     };
 
     //logica sockettttt
-    //logica sockettttt
 
     useEffect(()=>{
         rolagemScren();
@@ -68,25 +67,35 @@ function TextScren({socketUnic, listDeConversas}){
     };
 }, [keyMomentChat]);
 
+
+    //enviar mensagem 
     function enviarMensagem(){
+        if (messageRef.current.value.trim() !== ''){
         socketUnic.emit('enviarMensagem', {keyMomentChat: keyMomentChat, emailQueEnviou: localStorage.getItem('email'), mensagem: messageRef.current.value});
         socketUnic.emit('LastMessage', keyMomentChat);
         clearInput();
         focusInput();
-        rolagemScren();
+        rolagemScren();}else{
+            return
+        }
     };
 
 
     //escutando última mensagem socket, com um map para criar um socket on para cada key de cada conversa 
-    useEffect(()=>{
-        listDeConversas.map((cadaConversaUnica)=>{
-            socketUnic.on(`${cadaConversaUnica.keyConversation}LastMessage`, teste=>{
-                setLastMessages(lastMessages[cadaConversaUnica.keyConversation]) = teste;
-                console.log(lastMessages);
-            });
-        });
+     useEffect(()=>{
+         if (listDeConversas) {
+         listDeConversas.map((cadaConversaUnica)=>{
+             socketUnic.on(`${cadaConversaUnica.keyConversation}LastMessage`, response=>{
 
-    },[]);
+                setLastMessages((prevLastMessage) => {
+                    return { ...prevLastMessage, [response.keyMomentChat] : {conteudo: response.conteudo, emailLogado: response.emailLogado}};
+                  });
+             });
+         });
+        }else{
+            console.log('nao há list')
+        }
+     },[]);
    
 
     return(
@@ -96,7 +105,10 @@ function TextScren({socketUnic, listDeConversas}){
                 {listDeConversas && listDeConversas.map((cadaConversa)=>(
                     <div className={styles.conversaUnica} onClick={()=>setarConversaAtualGerarChave(cadaConversa.emailConversaAtual, localStorage.getItem('email'))}>
                         <p>{cadaConversa.emailConversaAtual}</p>
-                        <p>teste</p>
+                        {lastMessages[cadaConversa.keyConversation] && (
+                         <p className={lastMessages[cadaConversa.keyConversation].emailLogado !== localStorage.getItem('email') ? styles.mensagemQueRecebiNova : styles.mensagemQueEnvieiNova}>{lastMessages[cadaConversa.keyConversation].conteudo}</p>
+                        )}
+                       
                     </div>
                 ))}
             </div>

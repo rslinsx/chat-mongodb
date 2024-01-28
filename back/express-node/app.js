@@ -107,6 +107,7 @@ io.on('connection', socket => {
     
     const newMessage = new newMessageModel({
       emailLogado: response.emailQueEnviou,
+      keyMomentChat: response.keyMomentChat,
       conteudo: response.mensagem
     }); 
 
@@ -125,6 +126,7 @@ io.on('connection', socket => {
 
     messageModelToFind.find({}).then((lastMe)=>{
       io.emit(`${response}LastMessage`, lastMe[(lastMe.length) - 1]);
+      console.log(lastMe[(lastMe.length) - 1]);
     }).catch((err)=>{
       console.log(err);
     })

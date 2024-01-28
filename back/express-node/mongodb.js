@@ -31,6 +31,7 @@ const crmSchema = new mongoose.Schema({
 const mensagensSchema = new mongoose.Schema({
     emailLogado: String,
     conteudo: String,
+    keyMomentChat: String,
     hora: {
         type: Date,
         default: Date.now

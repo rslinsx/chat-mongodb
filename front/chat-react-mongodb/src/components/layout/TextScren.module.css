@@ -15,7 +15,7 @@
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
     height: 10%;
-    width: 90%;
+    width: 90%; 
 }
 
 
@@ -35,7 +35,7 @@
 .mensagemEnviada {          
     word-wrap: break-word;
     width: 40%;
-    background-color: #4095D1;
+    background-color: grey;
     max-width: max-content;
     min-width: 3%;
     margin-left: auto;
@@ -45,10 +45,20 @@
 
 .mensagemRecebida {
     word-wrap: break-word;
-    background-color: grey;
+    background-color: #4095D1;
     width: 40%;
     max-width: max-content;
     border-radius: 10px;
+}
+
+.mensagemQueRecebiNova {
+    background-color: #4095D1;
+    overflow: hidden;
+}
+
+.mensagemQueEnvieiNova { 
+    background-color: grey;
+    overflow: hidden;
 }
 
 
