@@ -70,9 +70,8 @@ function TextScren({socketUnic, listDeConversas}){
 
     //enviar mensagem 
     function enviarMensagem(){
-        if (messageRef.current.value.trim() !== ''){
+        if (messageRef.current.value.trim() !== '' && keyMomentChat !== ''){
         socketUnic.emit('enviarMensagem', {keyMomentChat: keyMomentChat, emailQueEnviou: localStorage.getItem('email'), mensagem: messageRef.current.value});
-        socketUnic.emit('LastMessage', keyMomentChat);
         clearInput();
         focusInput();
         rolagemScren();}else{
@@ -81,21 +80,38 @@ function TextScren({socketUnic, listDeConversas}){
     };
 
 
+
     //escutando última mensagem socket, com um map para criar um socket on para cada key de cada conversa 
      useEffect(()=>{
          if (listDeConversas) {
-         listDeConversas.map((cadaConversaUnica)=>{
+         listDeConversas.forEach((cadaConversaUnica)=>{
              socketUnic.on(`${cadaConversaUnica.keyConversation}LastMessage`, response=>{
 
+                if(response && response.keyMomentChat) {
                 setLastMessages((prevLastMessage) => {
                     return { ...prevLastMessage, [response.keyMomentChat] : {conteudo: response.conteudo, emailLogado: response.emailLogado}};
                   });
+
+                }   
              });
          });
         }else{
             console.log('nao há list')
         }
      },[]);
+
+     
+    useEffect(()=>{
+        if (listDeConversas !== null && listDeConversas !== undefined) {
+        listDeConversas.forEach(element => {
+            socketUnic.emit('LastMessage', element.keyConversation);
+        });}else{
+            return;
+        }
+        
+    }, [messages])
+
+     
    
 
     return(

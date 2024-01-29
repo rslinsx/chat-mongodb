@@ -126,7 +126,7 @@ io.on('connection', socket => {
 
     messageModelToFind.find({}).then((lastMe)=>{
       io.emit(`${response}LastMessage`, lastMe[(lastMe.length) - 1]);
-      console.log(lastMe[(lastMe.length) - 1]);
+      console.log('teste de ultima mensagem: ' + lastMe[(lastMe.length) - 1] + response);
     }).catch((err)=>{
       console.log(err);
     })
