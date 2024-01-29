@@ -9,6 +9,7 @@ function TextScren({socketUnic, listDeConversas}){
     const rolagemRef = useRef();
     const [keyMomentChat, setKeyMomentChat] = useState(''); 
     const [lastMessages, setLastMessages] = useState({});   
+    const [lastTimeMessage, setLastTimeMessage] = useState({});
     
     function generateConversationKey(email1, email2) {
         const sortedEmails = [email1, email2].sort();
@@ -92,6 +93,11 @@ function TextScren({socketUnic, listDeConversas}){
                     return { ...prevLastMessage, [response.keyMomentChat] : {conteudo: response.conteudo, emailLogado: response.emailLogado}};
                   });
 
+                setLastTimeMessage((prevLastTimeMessage) => {
+                    return { ...prevLastTimeMessage, [response.keyMomentChat] : response.hora };
+                    
+                  });  
+
                 }   
              });
          });
@@ -103,6 +109,8 @@ function TextScren({socketUnic, listDeConversas}){
      
     useEffect(()=>{
         if (listDeConversas !== null && listDeConversas !== undefined) {
+        console.log(listDeConversas); 
+        console.log(lastTimeMessage);   
         listDeConversas.forEach(element => {
             socketUnic.emit('LastMessage', element.keyConversation);
         });}else{
@@ -119,9 +127,14 @@ function TextScren({socketUnic, listDeConversas}){
             <div className={styles.campoLateral}>
 
                 {listDeConversas && listDeConversas.map((cadaConversa)=>(
-                    <div className={styles.conversaUnica} onClick={()=>setarConversaAtualGerarChave(cadaConversa.emailConversaAtual, localStorage.getItem('email'))}>
+                    <div className={`${styles.conversaUnica} ${cadaConversa.keyConversation === keyMomentChat ? styles.conversaClicadaNoMomento : ''}`} onClick={()=>setarConversaAtualGerarChave(cadaConversa.emailConversaAtual, localStorage.getItem('email'))}>
                         <p>{cadaConversa.emailConversaAtual}</p>
+                        {lastTimeMessage[cadaConversa.keyConversation] && (
+                        <p>{lastTimeMessage[cadaConversa.keyConversation]}</p> 
+                        )}
+
                         {lastMessages[cadaConversa.keyConversation] && (
+                         
                          <p className={lastMessages[cadaConversa.keyConversation].emailLogado !== localStorage.getItem('email') ? styles.mensagemQueRecebiNova : styles.mensagemQueEnvieiNova}>{lastMessages[cadaConversa.keyConversation].conteudo}</p>
                         )}
                        

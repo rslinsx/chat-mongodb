@@ -18,6 +18,12 @@
     width: 90%; 
 }
 
+.conversaClicadaNoMomento {
+    padding: 5px;
+    background-color: #b6b6b6;
+}
+
+
 
 .telaDeConversas {
     width: 75vw;
@@ -54,11 +60,13 @@
 .mensagemQueRecebiNova {
     background-color: #4095D1;
     overflow: hidden;
+    border-radius: 10px;
 }
 
 .mensagemQueEnvieiNova { 
     background-color: grey;
     overflow: hidden;
+    border-radius: 10px;
 }
 
 
@@ -78,6 +86,7 @@
 .campoDeDigitacao input:focus{
     outline: none;
 }
+
 
 
 
