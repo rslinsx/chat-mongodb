@@ -2,7 +2,7 @@ import styles from "./TextScren.module.css";
 import React, { useState, useEffect, useRef } from 'react';
 import moment from 'moment';
 
-function TextScren({socketUnic, listDeConversas}){
+function TextScren({socketUnic, listDeConversas, setListDeConversas}){
 
     const [messages, setMessages] = useState([]);
     const messageRef = useRef();
@@ -109,14 +109,32 @@ function TextScren({socketUnic, listDeConversas}){
      
     useEffect(()=>{
         if (listDeConversas !== null && listDeConversas !== undefined) {
-        console.log(listDeConversas); 
-        console.log(lastTimeMessage);   
         listDeConversas.forEach(element => {
             socketUnic.emit('LastMessage', element.keyConversation);
         });}else{
             return;
         }
         
+    }, [messages]);
+
+    //alterando ordem das conversas de acordo com a última mensagem, o horário
+    useEffect(()=>{ 
+        // Convertendo o primeiro objeto para um array de objetos
+        const listDeLastMessagesTransformandoEmArray = Object.entries(lastTimeMessage).map(([key, value]) => ({ key, value }));
+
+        // Ordenando o array de objetos com base nos valores 
+        listDeLastMessagesTransformandoEmArray.sort((a, b) => new Date(a.value) - new Date(b.value));
+
+        // Ordenando o segundo array de acordo com a ordem das chaves no array ordenado
+        const listDeConversasOrdenadas = listDeConversas.sort((a, b) => {
+            const indexA = listDeLastMessagesTransformandoEmArray.findIndex(item => item.key === a.keyConversation);
+            const indexB = listDeLastMessagesTransformandoEmArray.findIndex(item => item.key === b.keyConversation);
+            return indexA - indexB;
+        });
+
+        setListDeConversas(listDeConversasOrdenadas);
+        console.log(JSON.stringify(listDeConversas) + 'teste')
+
     }, [messages])
 
      
@@ -129,10 +147,6 @@ function TextScren({socketUnic, listDeConversas}){
                 {listDeConversas && listDeConversas.map((cadaConversa)=>(
                     <div className={`${styles.conversaUnica} ${cadaConversa.keyConversation === keyMomentChat ? styles.conversaClicadaNoMomento : ''}`} onClick={()=>setarConversaAtualGerarChave(cadaConversa.emailConversaAtual, localStorage.getItem('email'))}>
                         <p>{cadaConversa.emailConversaAtual}</p>
-                        {lastTimeMessage[cadaConversa.keyConversation] && (
-                        <p>{lastTimeMessage[cadaConversa.keyConversation]}</p> 
-                        )}
-
                         {lastMessages[cadaConversa.keyConversation] && (
                          
                          <p className={lastMessages[cadaConversa.keyConversation].emailLogado !== localStorage.getItem('email') ? styles.mensagemQueRecebiNova : styles.mensagemQueEnvieiNova}>{lastMessages[cadaConversa.keyConversation].conteudo}</p>
