@@ -118,12 +118,14 @@ function TextScren({socketUnic, listDeConversas, setListDeConversas}){
     }, [messages]);
 
     //alterando ordem das conversas de acordo com a última mensagem, o horário
-    useEffect(()=>{ 
+    useEffect(()=>{
+        
+        if (lastTimeMessage && listDeConversas) {
         // Convertendo o primeiro objeto para um array de objetos
         const listDeLastMessagesTransformandoEmArray = Object.entries(lastTimeMessage).map(([key, value]) => ({ key, value }));
 
         // Ordenando o array de objetos com base nos valores 
-        listDeLastMessagesTransformandoEmArray.sort((a, b) => new Date(a.value) - new Date(b.value));
+        listDeLastMessagesTransformandoEmArray.sort((a, b) => new Date(b.value) - new Date(a.value));
 
         // Ordenando o segundo array de acordo com a ordem das chaves no array ordenado
         const listDeConversasOrdenadas = listDeConversas.sort((a, b) => {
@@ -133,9 +135,11 @@ function TextScren({socketUnic, listDeConversas, setListDeConversas}){
         });
 
         setListDeConversas(listDeConversasOrdenadas);
-        console.log(JSON.stringify(listDeConversas) + 'teste')
-
-    }, [messages])
+        console.log('aqui é o lastMessages: ' + JSON.stringify(listDeLastMessagesTransformandoEmArray));
+        }else{
+            return;
+        }
+    }, [lastMessages])
 
      
    
