@@ -1,6 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
+import styles from './Perfil.module.css';
+
 
 function Perfil() {
+
+
+  const [primeiroNomePerfil, setPrimeiroNomePerfil] = useState('');
+  const [ultimoNomePerfil, setUltimoNomePerfil] = useState('');
 
   function carregarInfosDoPerfil(){
     fetch('http://localhost:8081/perfil', {
@@ -14,7 +20,9 @@ function Perfil() {
     }).then((response)=>{
       return response.json();
     }).then((data)=>{
-      console.log(data);
+      setPrimeiroNomePerfil(data.firstname);
+      setUltimoNomePerfil(data.lastname);
+      
     }).catch(err=>{
       console.log(err)
     })
@@ -27,7 +35,11 @@ function Perfil() {
 
   return (
     <div>
-      <h1>Perfil</h1>
+      <div className={styles.mainScrenPerfil}>
+        <h1>Cadastro</h1>
+        <h3>Nome: {primeiroNomePerfil}</h3>
+        <h3>sobrenome: {ultimoNomePerfil}</h3>
+      </div>
     </div>
   );
 }

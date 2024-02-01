@@ -1,0 +1,32 @@
+.mainScrenPerfil { 
+    width: 50vw;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #4095D1;
+    border-radius: 10px;
+}
+
+.mainScrenPerfil h1 {
+    background-color: whitesmoke;
+    width: 30vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.mainScrenPerfil h3 {
+    background-color: whitesmoke;
+    width: 30vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
