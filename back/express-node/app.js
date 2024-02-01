@@ -137,29 +137,24 @@ io.on('connection', socket => {
 
 
 //Rotas
-
+  // aqui será a rota da home calma que já volto aqui e penso em algo bacana para colocar
   app.get('/', (req, res)=>{
     res.send('Somente um teste');
   });
+  
+ // carrega dados do perfil (primeiro nome, sobrenome e alterar senha por enquanto) na página perfil no front pegando do newUser /n
+ // porque é um documento único com todos os users
 
-  app.get('/mensagens', (req, res)=>{ 
-    Mensagem.find({}).then((data) => {
-        res.json(data);
-      }).catch((err) => {
-      console.log(err);
-})});
-
-  app.post('/mensagens', (req, res)=>{
-    const novaMensagem = new Mensagem(req.body);
-
-    novaMensagem.save().then((mensagem)=>{
-      res.status(201).json(mensagem);
+  app.post('/perfil', (req, res)=>{
+    newUser.findOne(req.body).then((data)=>{
+      console.log(data);
+      res.json(data);
     }).catch((err)=>{
       console.log(err);
-      res.status(500).json({ error: 'Erro ao criar mensagem'});
     })
   });
 
+  // Carrega os contatos do CRM de cada usuário enviando ali no req body uma template string com `${email}contacts`
   app.post('/crm/contatos', (req, res)=>{
       const todosUsuariosDeUmEmail = mongoose.model(req.body.crmBuscado, crmSchema);
       todosUsuariosDeUmEmail.find({}).then((data)=>{
@@ -170,7 +165,7 @@ io.on('connection', socket => {
   });
 
 
-  //Rota que verifica login e senha
+  //Rota que verifica login e senha - a logica e a mensagem pra dizer 'senha ou usuario incorretos' coloquei no front
   app.post('/login', (req, res)=>{
     newUser.findOne(req.body).then((data)=>{
       res.json(data);
@@ -179,7 +174,10 @@ io.on('connection', socket => {
   });
 
   });
-  
+
+  //< ---------------------------------------------------------------------------------------------- >
+  //Rotas CRM
+  //rota para procurar contatos no CRM para cadastrar 
   app.post("/crm/procurar", (req, res)=>{
       newUser.findOne(req.body).then((data)=>{
         console.log(req.body);
@@ -190,7 +188,7 @@ io.on('connection', socket => {
       });
   });
 
-
+  //rota que cadastra efetivamente o contato no banco de dados de cada usuário no mongodb com nome 'email + contacts'
   app.post("/crm/cadastrar", (req, res)=>{
      const novoContato = mongoose.model(`${req.body.emailUserAtual}contact`, crmSchema);
      novoContato.findOne({email: req.body.email}).then((data)=>{
@@ -208,9 +206,11 @@ io.on('connection', socket => {
         console.log(err)
      })}else{
        res.json('Esse email já está incluído no seu CRM')
-     }})});
+      }})});
 
-  //rota de cadastro de usuario
+
+  // < -------------------------------------------------------------------------------------------------------------------------------------- >   
+  //rota de registro de novo usuario
   app.post("/registro", (req, res)=>{
     newUser.findOne({email: req.body.email}).then((data)=>{
       if (data === null) {
