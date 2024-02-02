@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import styles from './HomeHome.module.css';
 
 
 
@@ -6,7 +7,7 @@ function HomeHome(){
  
     return(
         <div>
-            <h1>Aqui é a home</h1>
+            <h1 className={styles.logo}>Full-Chat</h1>
         </div>
     )
 };  

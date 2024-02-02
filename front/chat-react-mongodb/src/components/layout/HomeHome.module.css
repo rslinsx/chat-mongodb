@@ -1,0 +1,11 @@
+.logo {
+    color: #4095D1;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+    font-family: 'Roboto', sans-serif;
+    font-size: 20vh;
+    border-radius: 10px;
+}
