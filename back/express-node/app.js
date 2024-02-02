@@ -132,8 +132,14 @@ io.on('connection', socket => {
     })
     
   });
+  //excluir contato do CRM e tbm a conversa com o contato
+  socket.on('excluirContatoEConversa', response=>{
+    console.log(response)
+  })
 
 });
+
+
 
 
 //Rotas

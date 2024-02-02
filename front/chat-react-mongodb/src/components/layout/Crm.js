@@ -129,6 +129,10 @@ function Crm({socket}){
         socket.emit("ListaDeConversas", localStorage.getItem('email'));
     };
 
+    function excluirContatoEConversa(emailLogado, emailASerExcluido){
+        socket.emit('excluirContatoEConversa', {emailLogado: emailLogado, emailASerExcluido: emailASerExcluido, keyConversation: generateConversationKey(emailLogado, emailASerExcluido)});
+    };
+
     return(
         <div className={styles.telaMaiorCrm}>
 
@@ -144,8 +148,8 @@ function Crm({socket}){
                 <div className={styles.contactUnic} id={contatoEncontrado.email}>
                     <h3>{contatoEncontrado.email}</h3>
                     <p>{contatoEncontrado.firstname} {contatoEncontrado.lastname}</p>
-                    <Link to ="/mensagens"><button onClick={()=> iniciarConversa(contatoEncontrado.email)}>Iniciar conversa</button></Link>
-                    
+                    <Link to ="/mensagens"><button className={styles.botaoIniciar} onClick={()=> iniciarConversa(contatoEncontrado.email)}>Iniciar conversa</button></Link>
+                    <button onClick={()=>excluirContatoEConversa(localStorage.getItem('email'), contatoEncontrado.email)} className={styles.botaoExcluir}>Excluir contato e conversa</button>
                 </div>
                 ))}
             </div>
