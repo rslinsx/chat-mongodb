@@ -6,11 +6,13 @@ function Crm({socket}){
     
     const [mostrarJanelaProcurar, setMostarJanelaProcurar] = useState(false);
     const [mostrarJanelaCadastro, setMostrarJanelaCadastro] = useState(false);
+    const [mostrarJanelaExcluirContatoEConversa, setMostrarJanelaExcluirContatoEConversa] = useState(false);
     const [emailProcurado, setEmailProcurado] = useState('');
     const [emailContatoEncontrado, setEmailContatoEncontrado] = useState('');
     const [nomeContatoEncontrado, setNomeContatoEncontrado] = useState('');
     const [ultimoNomeContatoEncontrado, setUltimoNomeContatoEncontrado] = useState('');
     const [contatosEncontradosCrm, setcontatosEncontradosCrm] = useState([]);
+    const [emailASerExcluido, setEmailASerExcluido] = useState('');
     const [emailParaIniciarConversa, setEmailParaIniciarConversa] = useState('oi');
     const [socketMomento, setSocketmomento] = useState(null);
 
@@ -129,14 +131,22 @@ function Crm({socket}){
         socket.emit("ListaDeConversas", localStorage.getItem('email'));
     };
 
-    function excluirContatoEConversa(emailLogado, emailASerExcluido){
-        socket.emit('excluirContatoEConversa', {emailLogado: emailLogado, emailASerExcluido: emailASerExcluido, keyConversation: generateConversationKey(emailLogado, emailASerExcluido)});
+    function excluirContatoEConversa(){
+        socket.emit('excluirContatoEConversa', {emailLogado: localStorage.getItem('email'), emailASerExcluido: emailASerExcluido, keyConversation: generateConversationKey(localStorage.getItem('email'), emailASerExcluido)});
+        setMostrarJanelaExcluirContatoEConversa(true);
     };
+
+    function fecharJanelaExcluirContatoEConversa(){
+        setMostrarJanelaExcluirContatoEConversa(false);
+    }
+
+
 
     return(
         <div className={styles.telaMaiorCrm}>
 
             {mostrarJanelaProcurar && <div className={styles.overlay}></div>}
+            {mostrarJanelaExcluirContatoEConversa && <div className={styles.overlayDois} ></div>}
 
             <div className={styles.divCrm}>
                 <h1>CRM</h1>
@@ -149,7 +159,7 @@ function Crm({socket}){
                     <h3>{contatoEncontrado.email}</h3>
                     <p>{contatoEncontrado.firstname} {contatoEncontrado.lastname}</p>
                     <Link to ="/mensagens"><button className={styles.botaoIniciar} onClick={()=> iniciarConversa(contatoEncontrado.email)}>Iniciar conversa</button></Link>
-                    <button onClick={()=>excluirContatoEConversa(localStorage.getItem('email'), contatoEncontrado.email)} className={styles.botaoExcluir}>Excluir contato e conversa</button>
+                    <button onClick={()=>setEmailASerExcluido(contatoEncontrado.email)} className={styles.botaoExcluir}>Excluir contato e conversa</button>
                 </div>
                 ))}
             </div>
@@ -170,7 +180,17 @@ function Crm({socket}){
                 <h4>nome: {nomeContatoEncontrado} {ultimoNomeContatoEncontrado}</h4>
                 <p>email: {emailContatoEncontrado} </p>
                 <button className={styles.botaoDeProcurarContato}onClick={incluirContatoCrm}>Incluir contato no CRM</button>
-            </div>)}    
+            </div>)} 
+
+            {mostrarJanelaExcluirContatoEConversa && (<div className={styles.janelaExcluirContatoEConversa}>
+                <div className={styles.espaçoCloseExcluir}>
+                    <button onClick={()=>fecharJanelaExcluirContatoEConversa()}>X</button>
+                </div>
+                <div className={styles.avisoExcluir}>
+                    <p>Essa ação é irreversível. A conversa será apagada também para contato selecionado. Se desejar pode adicionar novamente o contato no seu CRM e iniciar uma nova conversa.</p>
+                </div>
+                <button className={styles.buttonExcluir} onClick={()=> excluirContatoEConversa()}>Confirmar</button>    
+            </div>)}   
 
 
         </div>

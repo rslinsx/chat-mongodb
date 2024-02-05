@@ -142,3 +142,56 @@
     padding: 25px;
     border-radius: 10px;
 }
+
+.janelaExcluirContatoEConversa {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    background-color: red;
+    border: none;
+    border-radius: 15px;
+    padding: 10px;
+    text-decoration: none;
+    width: 15vw;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+}
+
+.overlayDois {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Cor de fundo semi-transparente */
+    z-index: 0; 
+}
+
+.espaçoCloseExcluir {
+    
+    display: flex;
+    justify-content: right;
+}
+
+.espaçoCloseExcluir button:hover {
+    cursor: pointer;
+}
+
+.avisoExcluir {
+    margin-top: 15px;
+    background-color: whitesmoke;
+    border-radius: 15px;
+}
+
+.buttonExcluir {
+    padding: 5px;
+    margin-top: 10px;
+}
+
+.buttonExcluir:hover{
+    cursor: pointer;
+}
