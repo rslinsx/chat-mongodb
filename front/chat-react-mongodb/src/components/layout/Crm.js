@@ -133,12 +133,16 @@ function Crm({socket}){
 
     function excluirContatoEConversa(){
         socket.emit('excluirContatoEConversa', {emailLogado: localStorage.getItem('email'), emailASerExcluido: emailASerExcluido, keyConversation: generateConversationKey(localStorage.getItem('email'), emailASerExcluido)});
-        setMostrarJanelaExcluirContatoEConversa(true);
     };
 
     function fecharJanelaExcluirContatoEConversa(){
         setMostrarJanelaExcluirContatoEConversa(false);
-    }
+    };
+
+    function mostrarJanelaConfirmacaoESetarEmailParaSerExcluido(email) {
+        setEmailASerExcluido(email);
+        setMostrarJanelaExcluirContatoEConversa(true);
+    };
 
 
 
@@ -159,7 +163,7 @@ function Crm({socket}){
                     <h3>{contatoEncontrado.email}</h3>
                     <p>{contatoEncontrado.firstname} {contatoEncontrado.lastname}</p>
                     <Link to ="/mensagens"><button className={styles.botaoIniciar} onClick={()=> iniciarConversa(contatoEncontrado.email)}>Iniciar conversa</button></Link>
-                    <button onClick={()=>setEmailASerExcluido(contatoEncontrado.email)} className={styles.botaoExcluir}>Excluir contato e conversa</button>
+                    <button onClick={()=>mostrarJanelaConfirmacaoESetarEmailParaSerExcluido(contatoEncontrado.email)} className={styles.botaoExcluir}>Excluir contato e conversa</button>
                 </div>
                 ))}
             </div>

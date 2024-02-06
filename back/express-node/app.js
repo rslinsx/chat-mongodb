@@ -134,8 +134,24 @@ io.on('connection', socket => {
   });
   //excluir contato do CRM e tbm a conversa com o contato
   socket.on('excluirContatoEConversa', response=>{
-    console.log(response)
-  })
+    const listaDeConversaEmailLogado = mongoose.model(`${response.emailLogado}ListaDeConversa`, listConversas);
+    const listaDeConversaEmailASerExcluido = mongoose.model(`${response.emailASerExcluido}ListaDeConversa`, listConversas);
+  
+    listaDeConversaEmailLogado.deleteOne({emailConversaAtual: response.emailASerExcluido}).then((callback)=>{
+      console.log(callback);
+    }).catch((err)=>{
+      console.log(err);
+    });
+
+    listaDeConversaEmailASerExcluido.deleteOne({emailConversaAtual: response.emailLogado}).then((callback)=>{
+      console.log(callback);
+    }).catch((err)=>{
+      console.log(err);
+    });
+
+  
+  
+  });
 
 });
 
