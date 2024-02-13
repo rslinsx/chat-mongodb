@@ -136,23 +136,33 @@ io.on('connection', socket => {
   socket.on('excluirContatoEConversa', response=>{
     const listaDeConversaEmailLogado = mongoose.model(`${response.emailLogado}ListaDeConversa`, listConversas);
     const listaDeConversaEmailASerExcluido = mongoose.model(`${response.emailASerExcluido}ListaDeConversa`, listConversas);
-  
-    listaDeConversaEmailLogado.deleteOne({emailConversaAtual: response.emailASerExcluido}).then((callback)=>{
+    const mensagensASeremExcluídas = mongoose.model(`${response.keyConversation}Message`, mensagensSchema);
+    const contatoASerExcluido = mongoose.model(`${response.emailLogado}contact`, crmSchema);
+
+    listaDeConversaEmailLogado.deleteOne({emailConversaAtual: response.emailASerExcluido}).then(()=>{
+      listaDeConversaEmailLogado.find({}).then(data=>{socket.emit(`${response.emailLogado}ListaDeConversaAtual`, data)});
+    }).catch((err)=>{
+      console.log(err);
+    });
+
+    listaDeConversaEmailASerExcluido.deleteOne({emailConversaAtual: response.emailLogado}).then(()=>{
+      listaDeConversaEmailASerExcluido.find({}).then(data=>{socket.emit(`${response.emailASerExcluido}ListaDeConversaAtual`, data)});
+    }).catch((err)=>{
+      console.log(err);
+    });
+
+    mensagensASeremExcluídas.deleteMany({}).then((callback)=>{
       console.log(callback);
     }).catch((err)=>{
       console.log(err);
     });
 
-    listaDeConversaEmailASerExcluido.deleteOne({emailConversaAtual: response.emailLogado}).then((callback)=>{
-      console.log(callback);
+    contatoASerExcluido.deleteOne({email: response.emailASerExcluido}).then((callback)=>{
+      console.log(callback)
     }).catch((err)=>{
-      console.log(err);
-    });
-
-  
-  
+      console.log(err)
+    })
   });
-
 });
 
 

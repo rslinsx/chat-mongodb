@@ -132,7 +132,9 @@ function Crm({socket}){
     };
 
     function excluirContatoEConversa(){
+        setMostrarJanelaExcluirContatoEConversa(true)
         socket.emit('excluirContatoEConversa', {emailLogado: localStorage.getItem('email'), emailASerExcluido: emailASerExcluido, keyConversation: generateConversationKey(localStorage.getItem('email'), emailASerExcluido)});
+        window.location.reload();
     };
 
     function fecharJanelaExcluirContatoEConversa(){
