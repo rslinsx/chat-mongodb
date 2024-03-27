@@ -50,26 +50,34 @@ function LoginForm(){
 
     
     return(
-            <div className={styles.telaMaiorLogin}>
-                <h1>Bem-vindo ao Full-Chat!</h1>
-                <div className={styles.campoLoginESenha}>
-                    <div className={styles.digitarloginesenha}>
-                        <label htmlFor='email'></label>
-                        <input type="email" id="email" placeholder='email' onChange={setarEmail}></input>
-                    </div>
-                    <div className={styles.digitarloginesenha}>
-                        <label htmlFor='senha'> </label>
-                        <input type="password" id="senha" placeholder='senha' onChange={setarSenha} onKeyDown={(e)=>getEnterKey(e)}></input>
-                    </div>
-                </div>
-                <div className={styles.campoBotaoEntrar}>
-                    <button onClick={loginEnviar} >Entrar</button> 
-                </div>
-                <div className={styles.campoBotaoRegistrar}>
-                    <button><Link to="/cadastro">Registrar-se</Link></button> 
-                </div>
-                
-            </div>             
+            <div className="container-fluid">
+                        <div className="row justify-content-center align-items-center min-vh-100" id={styles.image}>
+                            <div className="col-9 col-sm-9 col-xl-4">
+                                <div className="card bg-dark bg-opacity-50">
+                                    <div className="card-body">
+                                            <h1 className="card-title text-white justify-content-center text-center">Full-Chat!</h1>
+                                            <div>
+                                                <div className="mb-3">
+                                                    <label htmlFor='email' className="form-label text-white">Email</label>
+                                                    <input type="email" id="email" placeholder='email' className="form-control" onChange={setarEmail}></input>
+                                                </div>
+                                                <div className="mb-3">
+                                                    <label htmlFor='senha' className="form-label text-white">Senha </label>
+                                                    <input type="password" id="senha" placeholder='senha' className="form-control" onChange={setarSenha} onKeyDown={(e)=>getEnterKey(e)}></input>
+                                                </div>
+                                            </div>
+                                            <div className="d-grid gap-2">
+                                                <button onClick={loginEnviar} className="btn btn-success">Entrar</button>
+                                                <button className="btn btn-dark">
+                                                    <Link to="/cadastro" className="text-white text-decoration-none">Registrar-se</Link>
+                                                </button>  
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>          
+            </div>
+
             
     )
 };
