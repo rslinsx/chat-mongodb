@@ -1,11 +1,25 @@
-.logo {
-    color: #4095D1;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
-    font-family: 'Roboto', sans-serif;
-    font-size: 20vh;
-    border-radius: 10px;
+#image {
+    background-image: url(../../pexels-snapwire-292426.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
+
+
+/* Estilos para barras de rolagem */
+::-webkit-scrollbar {
+    width: 10px; /* largura da barra de rolagem */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #212529; /* cor de fundo da barra de rolagem */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #212529; /* cor da barra de rolagem */
+  }
+  
+  /* Estilos para o botão de rolagem */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #212529; /* cor da barra de rolagem ao passar o mouse */
+  }

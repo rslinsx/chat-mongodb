@@ -13,8 +13,7 @@ function Crm({socket}){
     const [ultimoNomeContatoEncontrado, setUltimoNomeContatoEncontrado] = useState('');
     const [contatosEncontradosCrm, setcontatosEncontradosCrm] = useState([]);
     const [emailASerExcluido, setEmailASerExcluido] = useState('');
-    const [emailParaIniciarConversa, setEmailParaIniciarConversa] = useState('oi');
-    const [socketMomento, setSocketmomento] = useState(null);
+    const [mostrarJanelaProcurarCadastro, setMostrarJanelaProcurarContato] = useState(false);
 
 
     function procurarEmail(){
@@ -109,6 +108,14 @@ function Crm({socket}){
       setMostarJanelaProcurar(true); 
     };
 
+    function procurarContato(){
+        setMostrarJanelaProcurarContato(true);
+    }
+
+    function fecharJanelaProcurarContato(){
+        setMostrarJanelaProcurarContato(false);
+    }
+
     function fecharJanelaCadastro(){
         setEmailProcurado('');
         setMostrarJanelaCadastro(false);
@@ -149,26 +156,33 @@ function Crm({socket}){
 
 
     return(
-        <div className={styles.telaMaiorCrm}>
-
-            {mostrarJanelaProcurar && <div className={styles.overlay}></div>}
-            {mostrarJanelaExcluirContatoEConversa && <div className={styles.overlayDois} ></div>}
-
-            <div className={styles.divCrm}>
-                <h1>CRM</h1>
-                <button onClick={CadastrarContato}>Cadastrar contato</button>
+        <div className="container-fluid min-vh-100"  id={styles.image}>
+            
+            <div className="p-4 d-flex justify-content-center flex-column align-items-center">
+                <h1 className="p-3">CRM</h1>
+                <button onClick={CadastrarContato} className="btn btn-success">Cadastrar contato</button>
+                <button onClick={procurarContato} className="btn btn-success mt-2">Procurar contato</button>
             </div>
-            <div className={styles.container}>
+                <div className="row">
                 {contatosEncontradosCrm.map((contatoEncontrado)=>(
-
-                <div className={styles.contactUnic} id={contatoEncontrado.email}>
-                    <h3>{contatoEncontrado.email}</h3>
-                    <p>{contatoEncontrado.firstname} {contatoEncontrado.lastname}</p>
-                    <Link to ="/mensagens"><button className={styles.botaoIniciar} onClick={()=> iniciarConversa(contatoEncontrado.email)}>Iniciar conversa</button></Link>
-                    <button onClick={()=>mostrarJanelaConfirmacaoESetarEmailParaSerExcluido(contatoEncontrado.email)} className={styles.botaoExcluir}>Excluir contato e conversa</button>
-                </div>
+                
+                    <div className="col-3 mt-3">
+                        <div className="card bg-dark bg-opacity-50 ms-2" id={contatoEncontrado.email} style={{width: "16rem"}}>
+                            <img src="https://www.guiaviagensbrasil.com/imagens/Imagem%20do%20mar%20calma%20e%20belo%20da%20Praia%20da%20Engenhoca-Itacar%C3%A9-Bahia-BA.jpg" class="card-img-top" alt="..."></img>
+                            <div className="card-body">
+                                <div className="card-header">
+                                    <h5 class="card-title text-white">{contatoEncontrado.email}</h5>
+                                    <p className="card-text text-white">{contatoEncontrado.firstname} {contatoEncontrado.lastname}</p>
+                                </div>
+                                <div className="card-footer d-flex flex-column align-items-center">    
+                                    <Link to ="/mensagens"><button className="btn btn-success" onClick={()=> iniciarConversa(contatoEncontrado.email)}>Iniciar conversa</button></Link>
+                                    <button onClick={()=>mostrarJanelaConfirmacaoESetarEmailParaSerExcluido(contatoEncontrado.email)} className="btn mt-1 btn-danger">Deletar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                
                 ))}
-            </div>
+                </div>
 
 
             {mostrarJanelaProcurar && (<div className={styles.janelaCadastroContato}>
@@ -196,7 +210,24 @@ function Crm({socket}){
                     <p>Essa ação é irreversível. A conversa será apagada também para contato selecionado. Se desejar pode adicionar novamente o contato no seu CRM e iniciar uma nova conversa.</p>
                 </div>
                 <button className={styles.buttonExcluir} onClick={()=> excluirContatoEConversa()}>Confirmar</button>    
-            </div>)}   
+            </div>)}
+            
+            
+            {mostrarJanelaProcurarCadastro && (<div className="card bg-dark text-bg-dark w-50 h-75 fixed-top" id={styles.procurarContato}>
+                <div className="card-body">
+                    <div className="card-header d-flex justify-content-end">
+                        <button  className="btn btn-danger"onClick={()=>fecharJanelaProcurarContato()}>X</button>
+                    </div>
+                    <div className="card-title">
+                        <h3>Procurar contato</h3>
+                    </div>    
+                    <input  className="form-control w-75" type="text"/>
+                    <button className="btn btn-success">Pesquisar</button>
+                </div>    
+            </div>)}
+
+
+
 
 
         </div>

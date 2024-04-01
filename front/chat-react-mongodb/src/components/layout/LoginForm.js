@@ -9,6 +9,7 @@ function LoginForm(){
     
     const [emailDigitado,setEmailDigitado] = useState('');
     const [senhadigitada, setSenhaDigitada] = useState('');
+    const [mostrarSenha, setMostrarSenha] = useState(false);
     
 
     function setarEmail(e){
@@ -46,7 +47,15 @@ function LoginForm(){
             console.log(err);
         });
         
-    }; 
+    };
+    
+    function botaoMostrarSenha(){
+        if (mostrarSenha) {
+            setMostrarSenha(false);
+        }else{
+            setMostrarSenha(true);
+        }
+    }
 
     
     return(
@@ -62,15 +71,26 @@ function LoginForm(){
                                                     <input type="email" id="email" placeholder='email' className="form-control" onChange={setarEmail}></input>
                                                 </div>
                                                 <div className="mb-3">
-                                                    <label htmlFor='senha' className="form-label text-white">Senha </label>
-                                                    <input type="password" id="senha" placeholder='senha' className="form-control" onChange={setarSenha} onKeyDown={(e)=>getEnterKey(e)}></input>
+                                                        <label htmlFor='senha' className="form-label text-white">Senha </label>
+                                                    <div className="input-group">
+                                                        
+                                                        <input type={mostrarSenha ? 'text' : 'password'} id="senha" placeholder='senha' className="form-control" onChange={setarSenha} onKeyDown={(e)=>getEnterKey(e)}>
+                                                        </input>
+                                                        <div className="input-group-append">
+                                                            <span className="input-group-text rounded-start-0" id={styles.eyePassword} title={mostrarSenha ? 'Ocultar senha' : 'Mostrar senha'} onClick={botaoMostrarSenha}>
+                                                                <i className={mostrarSenha ? 'bi-eye' : 'bi-eye-slash'}></i>
+                                                            </span>
+                                                        </div>
+
+                                                    </div>    
                                                 </div>
                                             </div>
                                             <div className="d-grid gap-2">
                                                 <button onClick={loginEnviar} className="btn btn-success">Entrar</button>
                                                 <button className="btn btn-dark">
                                                     <Link to="/cadastro" className="text-white text-decoration-none">Registrar-se</Link>
-                                                </button>  
+                                                </button>
+                                                  
                                             </div>
                                     </div>
                                 </div>
