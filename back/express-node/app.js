@@ -220,6 +220,16 @@ io.on('connection', socket => {
       });
   });
 
+  //Rota pra procurar contatos no CRM de quem pesquisou para iniciar conversa
+  app.post("/crm/procurarcontato", (req, res)=>{
+      const crmDoContatoAtual = mongoose.model(`${req.body.emailUserAtual}contact`, crmSchema);
+      crmDoContatoAtual.findOne({email: req.body.emailProcuradoCrm}).then((data)=>{
+        res.json(data);
+      }).catch((err)=>{
+        console.log(err);
+      })
+  })
+
   //rota que cadastra efetivamente o contato no banco de dados de cada usuário no mongodb com nome 'email + contacts'
   app.post("/crm/cadastrar", (req, res)=>{
      const novoContato = mongoose.model(`${req.body.emailUserAtual}contact`, crmSchema);

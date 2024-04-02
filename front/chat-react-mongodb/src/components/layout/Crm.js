@@ -7,13 +7,21 @@ function Crm({socket}){
     const [mostrarJanelaProcurar, setMostarJanelaProcurar] = useState(false);
     const [mostrarJanelaCadastro, setMostrarJanelaCadastro] = useState(false);
     const [mostrarJanelaExcluirContatoEConversa, setMostrarJanelaExcluirContatoEConversa] = useState(false);
+    
+    //hooks para encontrar contatos para adicionar no CRM
     const [emailProcurado, setEmailProcurado] = useState('');
     const [emailContatoEncontrado, setEmailContatoEncontrado] = useState('');
     const [nomeContatoEncontrado, setNomeContatoEncontrado] = useState('');
     const [ultimoNomeContatoEncontrado, setUltimoNomeContatoEncontrado] = useState('');
+    //email procurado no proprio crm
+    const [emailProcuradoCrm, setEmailProcuradoCrm] = useState('');
+    const [emailEncontradoCrm, setEmailEncontradoCrm] = useState('');
+    const [mostrarJanelaProcurarCadastro, setMostrarJanelaProcurarContato] = useState(false);
+    const [mostrarJanelaEmailEncontradoCrm, setMostarJanelaEmailEncontradoCrm] = useState(false);
+    //contatos do email crm
     const [contatosEncontradosCrm, setcontatosEncontradosCrm] = useState([]);
     const [emailASerExcluido, setEmailASerExcluido] = useState('');
-    const [mostrarJanelaProcurarCadastro, setMostrarJanelaProcurarContato] = useState(false);
+    
 
 
     function procurarEmail(){
@@ -43,6 +51,36 @@ function Crm({socket}){
         }else{
         alert("Campo vazio!");
     }};
+
+    //função de procurar contato no CRM
+    function procurarEmailParaIniciarConversa(){
+
+        if (emailProcuradoCrm !== '') {
+
+        fetch('http://localhost:8081/crm/procurarcontato', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({emailUserAtual: localStorage.getItem('email'), 
+                                  emailProcuradoCrm: emailProcuradoCrm})
+        }).then((response)=>{
+             return response.json();
+        }).then((data)=>{
+            if(data === null){
+                alert("Email nao encontrado no seu CRM!")
+            }else{
+             
+             setEmailEncontradoCrm(data.email);
+             setMostarJanelaEmailEncontradoCrm(true);        
+        };
+        }).catch((err)=>{
+            console.log(err);
+        });
+        }else{
+        alert("Campo vazio!");
+    }};
+
 
 
     
@@ -114,6 +152,10 @@ function Crm({socket}){
 
     function fecharJanelaProcurarContato(){
         setMostrarJanelaProcurarContato(false);
+        setEmailProcuradoCrm('');
+        setEmailEncontradoCrm('');
+        setMostarJanelaEmailEncontradoCrm(false);
+
     }
 
     function fecharJanelaCadastro(){
@@ -125,6 +167,10 @@ function Crm({socket}){
     function setarEmailProcurado(e){
         setEmailProcurado(e.target.value);
     };
+
+    function setarEmailProcuradoProprioCrm(e){
+        setEmailProcuradoCrm(e.target.value);
+    }
 
     // Lógica socket // iniciar conversa
 
@@ -221,8 +267,20 @@ function Crm({socket}){
                     <div className="card-title">
                         <h3>Procurar contato</h3>
                     </div>    
-                    <input  className="form-control w-75" type="text"/>
-                    <button className="btn btn-success">Pesquisar</button>
+                    <input  className="form-control w-75" type="text" onChange={setarEmailProcuradoProprioCrm}/>
+                    <div className="d-flex w-75 justify-content-end">
+                        <button className="btn btn-success" onClick={procurarEmailParaIniciarConversa}>Pesquisar</button>
+                    </div>
+                    {mostrarJanelaEmailEncontradoCrm && (
+                    <div className="bg-dark">
+                        <p className="text-white">email: {emailEncontradoCrm}</p>
+                        <div className="d-flex flex-column w-25">
+                            <Link to ="/mensagens"><button className="btn btn-success" onClick={()=> iniciarConversa(emailEncontradoCrm)}>Iniciar conversa</button></Link>
+                            <button onClick={()=>mostrarJanelaConfirmacaoESetarEmailParaSerExcluido(emailEncontradoCrm)} className="btn mt-1 btn-danger">Deletar</button>
+                        </div>
+
+                    </div>
+                    )}
                 </div>    
             </div>)}
 

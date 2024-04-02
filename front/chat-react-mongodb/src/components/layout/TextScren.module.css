@@ -4,29 +4,21 @@
     flex-direction:row;
 }
 
-.campoLateral {
-    width: 25vw;
-    background-color: whitesmoke;
-    border-radius: 15px;
-}
 
 .conversaUnica {
     cursor: pointer;
     border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
-    height: 10%;
-    width: 90%; 
+    background-color: #000000;
 }
 
 .conversaClicadaNoMomento {
-    padding: 5px;
-    background-color: #b6b6b6;
+    background-color: gray;
 }
 
 
 
 .telaDeConversas {
-    width: 75vw;
+    max-height: 90vh;
     display: flex;
     flex-direction: column;
 }
@@ -88,19 +80,12 @@
 }
 
 
-
-
-.campoDeDigitacao button {
-    width: 8vw;
-    height: 8vh;
-    border: none;
-    border-radius: 15px;
-    background-color: whitesmoke;
-    background-color: #4095D1;
+#textextscren{
+    background-image: url(../../pexels-pixabay-315938.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-.campoDeDigitacao button:hover {
-    background-color: #E89E09;
-    transition: 0.5s;
-}
+
 

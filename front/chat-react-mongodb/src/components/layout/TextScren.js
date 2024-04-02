@@ -145,41 +145,51 @@ function TextScren({socketUnic, listDeConversas, setListDeConversas}){
    
 
     return(
-        <div className={styles.allScrenMessage}>
-            <div className={styles.campoLateral}>
+        <div className="container-fluid bg-dark">
 
-                {listDeConversas && listDeConversas.map((cadaConversa)=>(
-                    <div className={`${styles.conversaUnica} ${cadaConversa.keyConversation === keyMomentChat ? styles.conversaClicadaNoMomento : ''}`} onClick={()=>setarConversaAtualGerarChave(cadaConversa.emailConversaAtual, localStorage.getItem('email'))}>
-                        <p>{cadaConversa.emailConversaAtual}</p>
-                        {lastMessages[cadaConversa.keyConversation] && (
-                         
-                         <p className={lastMessages[cadaConversa.keyConversation].emailLogado !== localStorage.getItem('email') ? styles.mensagemQueRecebiNova : styles.mensagemQueEnvieiNova}>{lastMessages[cadaConversa.keyConversation].conteudo}</p>
-                        )}
-                       
-                    </div>
-                ))}
-            </div>
-
-            <div className={styles.telaDeConversas}>
-                    <div className={styles.telaComMensagens}>
-                       {messages.map((message)=>(
-                        
-                            <div className={message.emailLogado === localStorage.getItem('email') ? styles.mensagemEnviada : styles.mensagemRecebida}>
-                                <p>{message.conteudo}</p>
-
-                                <p>{moment(message.hora).format('HH:mm')}</p>
-                            </div>
-                            ))}
-                        
-                        <div ref={rolagemRef}></div>
-                    </div>
+            <div className="row">
+                <div className="col-3 d-flex flex-column bg-dark overflow-auto" style={{"max-height": "80vh"}}>
                     
-                    <div className={styles.campoDeDigitacao}>
-                        <input type="text" className = {styles.campoDeDigitacaoFinal} ref={messageRef} onKeyDown={(e)=>getEnterKey(e)}></input>
-                        <button onClick={()=> enviarMensagem()}>Enviar</button>
-                    </div>
-            </div>
 
+                        {listDeConversas && listDeConversas.map((cadaConversa)=>(
+                            <div className={`${styles.conversaUnica} ${cadaConversa.keyConversation === keyMomentChat ? styles.conversaClicadaNoMomento : ''} card mt-1 p-0`} onClick={()=>setarConversaAtualGerarChave(cadaConversa.emailConversaAtual, localStorage.getItem('email'))}>
+                                <div className="card-body">
+                                    <p className="card-header text-bg-dark">{cadaConversa.emailConversaAtual}</p>
+                                    {lastMessages[cadaConversa.keyConversation] && (
+                                    
+                                    <p className={`${lastMessages[cadaConversa.keyConversation].emailLogado !== localStorage.getItem('email') ? styles.mensagemQueRecebiNova : styles.mensagemQueEnvieiNova} text-white`}>{lastMessages[cadaConversa.keyConversation].conteudo}</p>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    
+                </div>    
+                <div className="col-9" >                   
+                        
+                            <div className={styles.telaComMensagens} id={styles.textextscren}>
+                            {messages.map((message)=>(
+                                
+                                    <div className={`${message.emailLogado === localStorage.getItem('email') ? styles.mensagemEnviada : styles.mensagemRecebida} text-white`}>
+                                        <div className="opacity-100">
+                                            <p>{message.conteudo}</p>
+                                        </div>
+                                        <p>{moment(message.hora).format('HH:mm')}</p>
+                                    </div>
+                                    ))}
+                                
+                                <div ref={rolagemRef}></div>
+                            </div>
+                            <div className="input-group">
+                                <input type="text" className = "form-control bg-dark text-bg-dark" ref={messageRef} onKeyDown={(e)=>getEnterKey(e)}></input>
+                                <div className="input-group-append">
+                                    <button className="btn btn-success p-3 input-group-text" onClick={()=> enviarMensagem()}>Enviar</button>
+                                </div>
+                            </div>
+                            
+                    
+                </div>                
+                
+            </div>
         </div>
     );
 };

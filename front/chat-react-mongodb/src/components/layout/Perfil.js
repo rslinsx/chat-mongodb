@@ -34,11 +34,17 @@ function Perfil() {
   
 
   return (
-    <div>
-      <div className={styles.mainScrenPerfil}>
-        <h1>Cadastro</h1>
-        <h3>Nome: {primeiroNomePerfil}</h3>
-        <h3>sobrenome: {ultimoNomePerfil}</h3>
+    <div className="container-fluid bg-black">
+      <div className="card bg-dark text-bg-dark mt-5 justify-content-center align-items-center bg-opacity-50">
+
+        <div className="card-body">
+          <div className="card-header">
+            <h1 className="card-title">Cadastro</h1>
+          </div>
+          <h3 >Nome: {primeiroNomePerfil}</h3>
+          <h3>sobrenome: {ultimoNomePerfil}</h3>
+          <h3>Email: {localStorage.getItem('email')}</h3>
+        </div>
       </div>
     </div>
   );
