@@ -6,13 +6,12 @@
 
 
 .conversaUnica {
-    cursor: pointer;
-    border-radius: 15px;
-    background-color: #000000;
+    cursor: pointer;    
+    background-color: #212529;
 }
 
 .conversaClicadaNoMomento {
-    background-color: gray;
+    border: 2px solid green;
 }
 
 
@@ -33,7 +32,7 @@
 .mensagemEnviada {          
     word-wrap: break-word;
     width: 40%;
-    background-color: grey;
+    background-color: #212529;
     max-width: max-content;
     min-width: 3%;
     margin-left: auto;
@@ -56,9 +55,15 @@
 }
 
 .mensagemQueEnvieiNova { 
-    background-color: grey;
+    background-color: #000000;
     overflow: hidden;
     border-radius: 10px;
+}
+
+.overflowp {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    max-height: 5vh;
 }
 
 

@@ -6,20 +6,3 @@
 }
 
 
-/* Estilos para barras de rolagem */
-::-webkit-scrollbar {
-    width: 10px; /* largura da barra de rolagem */
-  }
-  
-  ::-webkit-scrollbar-track {
-    background: #212529; /* cor de fundo da barra de rolagem */
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: #212529; /* cor da barra de rolagem */
-  }
-  
-  /* Estilos para o botão de rolagem */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #212529; /* cor da barra de rolagem ao passar o mouse */
-  }

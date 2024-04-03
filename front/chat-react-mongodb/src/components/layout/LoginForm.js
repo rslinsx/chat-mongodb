@@ -87,9 +87,9 @@ function LoginForm(){
                                             </div>
                                             <div className="d-grid gap-2">
                                                 <button onClick={loginEnviar} className="btn btn-success">Entrar</button>
-                                                <button className="btn btn-dark">
-                                                    <Link to="/cadastro" className="text-white text-decoration-none">Registrar-se</Link>
-                                                </button>
+                                                
+                                                <Link to ="/cadastro"><button className="btn btn-dark w-100">Registrar-se</button></Link>
+                                                
                                                   
                                             </div>
                                     </div>

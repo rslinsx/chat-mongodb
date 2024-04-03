@@ -32,10 +32,6 @@ io.on('connection', socket => {
   socket.on('disconnect', reason=>{
     console.log('usuário desconectado!', socket.id)});
 
-  socket.on('teste', message=>{
-    console.log(message);
-  });
-
   socket.on('EmitirInicio', response=>{
 
     const novaConversaDeIniciado = mongoose.model(`${response.emailIniciado}ListaDeConversa`, listConversas);
@@ -126,7 +122,6 @@ io.on('connection', socket => {
 
     messageModelToFind.find({}).then((lastMe)=>{
       io.emit(`${response}LastMessage`, lastMe[(lastMe.length) - 1]);
-      console.log('teste de ultima mensagem: ' + lastMe[(lastMe.length) - 1] + response);
     }).catch((err)=>{
       console.log(err);
     })
@@ -152,13 +147,13 @@ io.on('connection', socket => {
     });
 
     mensagensASeremExcluídas.deleteMany({}).then((callback)=>{
-      console.log(callback);
+      console.log('mensagens excluídas');
     }).catch((err)=>{
       console.log(err);
     });
 
     contatoASerExcluido.deleteOne({email: response.emailASerExcluido}).then((callback)=>{
-      console.log(callback)
+      console.log('contato excluído')
     }).catch((err)=>{
       console.log(err)
     })
@@ -179,7 +174,6 @@ io.on('connection', socket => {
 
   app.post('/perfil', (req, res)=>{
     newUser.findOne(req.body).then((data)=>{
-      console.log(data);
       res.json(data);
     }).catch((err)=>{
       console.log(err);
@@ -212,8 +206,6 @@ io.on('connection', socket => {
   //rota para procurar contatos no CRM para cadastrar 
   app.post("/crm/procurar", (req, res)=>{
       newUser.findOne(req.body).then((data)=>{
-        console.log(req.body);
-        console.log(data);
         res.json(data);
       }).catch((err)=>{
         console.log(err);

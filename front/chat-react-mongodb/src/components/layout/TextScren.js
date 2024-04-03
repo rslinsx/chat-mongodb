@@ -145,10 +145,12 @@ function TextScren({socketUnic, listDeConversas, setListDeConversas}){
    
 
     return(
-        <div className="container-fluid bg-dark">
+        <div className="container-fluid bg-black">
 
             <div className="row">
-                <div className="col-3 d-flex flex-column bg-dark overflow-auto" style={{"max-height": "80vh"}}>
+
+                {/* coluna esquerda com conversas de contatos do momento */}
+                <div className="col-3 d-flex flex-column bg-black overflow-auto" style={{"max-height": "80vh"}}>
                     
 
                         {listDeConversas && listDeConversas.map((cadaConversa)=>(
@@ -157,7 +159,7 @@ function TextScren({socketUnic, listDeConversas, setListDeConversas}){
                                     <p className="card-header text-bg-dark">{cadaConversa.emailConversaAtual}</p>
                                     {lastMessages[cadaConversa.keyConversation] && (
                                     
-                                    <p className={`${lastMessages[cadaConversa.keyConversation].emailLogado !== localStorage.getItem('email') ? styles.mensagemQueRecebiNova : styles.mensagemQueEnvieiNova} text-white`}>{lastMessages[cadaConversa.keyConversation].conteudo}</p>
+                                    <p className={`${lastMessages[cadaConversa.keyConversation].emailLogado !== localStorage.getItem('email') ? styles.mensagemQueRecebiNova : styles.mensagemQueEnvieiNova} text-white card-footer card-text ${styles.overflowp}`}>{lastMessages[cadaConversa.keyConversation].conteudo}</p>
                                     )}
                                 </div>
                             </div>

@@ -52,35 +52,43 @@ function Register(){
 
 
     return(
-        <div  className={styles.mainScrenRegister}>   
-              
-            <div className={styles.ScrenRegister} >
-                <h1>Cadastre o seu acesso!</h1>  
-                <div className={styles.ScrenCampos}>  
-                    <div>
-                        <label htmlFor='email'></label>
-                        <input onChange={setarEmailCadastro} type="email" placeholder="Digite aqui o seu email válido"id="email"></input>
+        <div  className="container">
+            <div className="row justify-content-center align-items-center">
+                <div className="col-9">
+                    <div className="card w-50" >
+                        <div className="card-header d-flex justify-content-center bg-dark">
+                            <h1 className="card-title text-bg-dark">Cadastre o seu acesso!</h1>
+                        </div>
+                        <div className="card-body bg-dark">  
+                            <div>
+                                <label htmlFor='email' className="form-label text-white"> Email: </label>
+                                <input onChange={setarEmailCadastro} type="email" placeholder="Digite aqui o seu email válido"id="email" className="form-control"></input>
+                            </div>
+                            <div>
+                                <label htmlFor='senha' className="form-label text-white">Senha: </label>
+                                <input onChange={setarSenhaCadastro}type="password" placeholder="Crie uma senha forte"id="senha" className="form-control"></input>
+                            </div>
+                            <div>
+                                <label htmlFor='nome' className="form-label text-white">Primeiro nome:</label>
+                                <input onChange={setarNomeCadastro} type="text" placeholder="Digite o seu primeiro nome" id="nome" className="form-control"></input>
+                            </div>
+                            <div>
+                                <label htmlFor='sobrenome'className="form-label text-white">Sobrenome:</label>
+                                <input onChange={setarSobreNomeCadastro} type="text" placeholder="Digite o seu sobrenome" id="sobrenome" className="form-control"></input>
+                            </div>
+                            
+                        </div>
+                        <div className="card-footer bg-dark d-flex justify-content-center">
+                            <div>
+                                <button onClick={cadastrarNovoUsuario} className="btn btn-success">Cadastrar</button> 
+                            </div>
+                            <div>
+                                <Link to="/login" className="btn btn-primary">Ir para página de Login</Link>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <label htmlFor='senha'></label>
-                        <input onChange={setarSenhaCadastro}type="password" placeholder="Crie uma senha forte"id="senha"></input>
-                    </div>
-                    <div>
-                        <label htmlFor='nome'></label>
-                        <input onChange={setarNomeCadastro} type="text" placeholder="Digite o seu primeiro nome" id="nome"></input>
-                    </div>
-                    <div>
-                        <label htmlFor='sobrenome'></label>
-                        <input onChange={setarSobreNomeCadastro} type="text" placeholder="Digite o seu sobrenome" id="sobrenome"></input>
-                    </div>
-                    <div>
-                        <button onClick={cadastrarNovoUsuario}>Cadastrar</button> 
-                    </div>
-                    <div>
-                        <Link to="/login" className={styles.botaoHome}>Ir para página de Login</Link>
-                    </div>
-                </div>
-             </div>    
+                </div>  
+            </div>        
         </div>
     )
 };
