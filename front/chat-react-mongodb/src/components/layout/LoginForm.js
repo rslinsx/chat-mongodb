@@ -61,7 +61,7 @@ function LoginForm(){
     return(
             <div className="container-fluid">
                         <div className="row justify-content-center align-items-center min-vh-100" id={styles.image}>
-                            <div className="col-9 col-sm-9 col-xl-4">
+                            <div className="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5 col-xxl-4 ">
                                 <div className="card bg-dark bg-opacity-50">
                                     <div className="card-body">
                                             <h1 className="card-title text-white justify-content-center text-center">Full-Chat!</h1>
